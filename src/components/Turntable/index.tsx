@@ -10,7 +10,7 @@ const Turntable = ({ setIsOn }: Props) => {
     const tonearmRef = useRef<HTMLDivElement>(null);
 
     // 마우스 버튼이 눌리면 드래그 시작
-    const handleMouseDown = (e: React.MouseEvent) => {
+    const handleMouseDown = () => {
         setIsDragging(true);
     };
 

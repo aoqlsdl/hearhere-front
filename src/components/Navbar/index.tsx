@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { IUser } from "../../domain/entities/User";
+// import { IUser } from "../../domain/entities/User";
 
-type Props = {
-    user: IUser | null;
-};
+// type Props = {
+//     user: IUser | null;
+// };
 
 // todo: const Navbar = ({ user }: Props) => {
 const Navbar = () => {
