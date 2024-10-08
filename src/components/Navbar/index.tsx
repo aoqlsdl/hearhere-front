@@ -1,4 +1,7 @@
 import { NavLink } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useRecoilState } from "recoil";
+import { isOnState } from "../../recoil/turntable/atom";
 // import { IUser } from "../../domain/entities/User";
 
 // type Props = {
@@ -7,15 +10,28 @@ import { NavLink } from "react-router-dom";
 
 // todo: const Navbar = ({ user }: Props) => {
 const Navbar = () => {
+    const isOn = useRecoilState(isOnState);
+
     return (
-        <nav className="flex justify-between">
+        <motion.nav
+            className="flex justify-between top-0 w-screen h-[4.25rem]"
+            initial={{ opacity: 0, y: 0 }} // 초기 상태: 투명하고 위로 이동
+            animate={isOn ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }} // isOn에 따라 나타남/사라짐
+            transition={{ duration: 1, ease: "easeInOut" }} // 애니메이션 지속 시간과 전환 설정
+        >
             <div>{/* {user && <div>Hi, {user.name}</div>} */}</div>
-            <div className="flex flex-row">
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/login">Login/Sign in</NavLink>
-                <NavLink to="/library">My Library</NavLink>
+            <div className="flex flex-row space-x-4 items-center mr-9">
+                <NavLink to="/" className="font-extralight lg:text-[23px]">
+                    Home
+                </NavLink>
+                <NavLink to="/login" className="font-extralight lg:text-[23px]">
+                    Login/Sign in
+                </NavLink>
+                <NavLink to="/library" className="font-extralight lg:text-[23px]">
+                    My Library
+                </NavLink>
             </div>
-        </nav>
+        </motion.nav>
     );
 };
 

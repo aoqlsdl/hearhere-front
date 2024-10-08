@@ -6,11 +6,11 @@
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
 }
 
 button {
@@ -21,11 +21,16 @@ button:focus,
 button:focus-visible {
 }
 
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
-  }
-  a:hover {
-  }
-  button {
-  }
+    :root {
+    }
+    a:hover {
+    }
+    button {
+    }
 }

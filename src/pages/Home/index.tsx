@@ -1,5 +1,7 @@
+import Turntable from "../../components/Turntable";
+
 const Home = () => {
-    return <div>Home</div>;
+    return <Turntable />;
 };
 
 export default Home;

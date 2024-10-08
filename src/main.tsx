@@ -5,13 +5,16 @@ import "./styles/index.css";
 import "./styles/global.css";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { RecoilRoot } from "recoil";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <BrowserRouter>
-            <HelmetProvider>
-                <App />
-            </HelmetProvider>
-        </BrowserRouter>
+        <RecoilRoot>
+            <BrowserRouter>
+                <HelmetProvider>
+                    <App />
+                </HelmetProvider>
+            </BrowserRouter>
+        </RecoilRoot>
     </StrictMode>
 );

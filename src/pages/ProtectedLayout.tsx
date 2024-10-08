@@ -9,6 +9,7 @@ type Props = {
 
 const ProtectedLayout = ({ user }: Props) => {
     // 로그인이 되어 있지 않으면 로그인 페이지로 이동
+
     if (!user) {
         return <Navigate to="/login" />;
     }

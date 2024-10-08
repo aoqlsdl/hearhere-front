@@ -3,12 +3,22 @@ export default {
     content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
+            theme: {
+                screens: {
+                    sm: "768px",
+                    md: "1024px",
+                    lg: "1440px",
+                },
+            },
             colors: {
                 primary: {
                     PINK: "#E24848",
                     L_BLACK: "#383838",
                     S_BLACK: "#464444",
                     SAND: "#B5A7A4",
+                    BEIGE100: "#EEEEEE",
+                    BEIGE200: "#CECECE",
+                    BEIGE300: "#817674",
                 },
             },
             fontFamily: {
@@ -41,6 +51,25 @@ export default {
                 "5.938rem": "5.938rem",
                 "2.938rem": "2.938rem",
                 "5.313rem": "5.313rem",
+            },
+            keyframes: {
+                fadein: {
+                    "0%": { opacity: "0", transform: "translate(0)" },
+                    "100%": { opacity: "1", transform: "translate(0)" },
+                },
+                fadeout: {
+                    "0%": {
+                        opacity: "1",
+                    },
+                    "100%": {
+                        opacity: "0",
+                        transform: "translate(0)",
+                    },
+                },
+                animation: {
+                    fadein: "fadein 0.5s",
+                    fadeout: "fadeout 1s",
+                },
             },
         },
     },
