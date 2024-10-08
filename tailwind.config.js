@@ -2,14 +2,14 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
-        extend: {
-            theme: {
-                screens: {
-                    sm: "768px",
-                    md: "1024px",
-                    lg: "1440px",
-                },
+        theme: {
+            screens: {
+                sm: "768px",
+                md: "1024px",
+                lg: "1440px",
             },
+        },
+        extend: {
             colors: {
                 primary: {
                     PINK: "#E24848",
