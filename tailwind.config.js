@@ -7,6 +7,7 @@ export default {
                 sm: "768px",
                 md: "1024px",
                 lg: "1440px",
+                1440: "1440px",
             },
         },
         extend: {

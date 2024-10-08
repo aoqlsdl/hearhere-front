@@ -21,13 +21,13 @@ const Navbar = () => {
         >
             <div>{/* {user && <div>Hi, {user.name}</div>} */}</div>
             <div className="flex flex-row space-x-4 items-center mr-9">
-                <NavLink to="/" className="font-extralight lg:text-[23px]">
+                <NavLink to="/" className="lg:font-extralight 1440:text-[23px]">
                     Home
                 </NavLink>
-                <NavLink to="/login" className="font-extralight lg:text-[23px]">
+                <NavLink to="/login" className="lg:font-extralight 1440:text-[23px]">
                     Login/Sign in
                 </NavLink>
-                <NavLink to="/library" className="font-extralight lg:text-[23px]">
+                <NavLink to="/library" className="lg:font-extralight 1440:text-[23px]">
                     My Library
                 </NavLink>
             </div>

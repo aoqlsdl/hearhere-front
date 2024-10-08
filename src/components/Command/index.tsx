@@ -21,11 +21,11 @@ const Command = () => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Imagine yourself 'Here', where you most desire to be."
-                        className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 text-[1.63rem] md:text-base lg:text-[26px]"
+                        className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 text-[1.63rem] lg:text-base 1440:text-[26px]"
                     />
                     <button
                         type="submit"
-                        className="bg-primary-PINK w-[8.38rem] p-0 text-white absolute bottom-[1.81rem] right-[1.81rem] md:h-10 md:text-base md:rounded-md lg:rounded-[15px] lg:h-16 lg:text-[1.62rem] "
+                        className="bg-primary-PINK w-[8.38rem] p-0 text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base lg:rounded-md 1440:rounded-[15px] 1440:h-16 1440:text-[1.62rem] "
                     >
                         Hear
                     </button>
@@ -36,7 +36,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("Dense forest, birds chirping, waterfall cascading down")
                 }
-                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left md:text-base lg:text-[26px]"
+                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left lg:text-base 1440:text-[26px]"
             >
                 ♪ Dense forest, birds chirping, waterfall cascading down
             </button>
@@ -45,7 +45,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("Summer Hawaii wave, dolphin calls, people giggling")
                 }
-                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left md:text-base lg:text-[26px]"
+                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left lg:text-base 1440:text-[26px]"
             >
                 ♪ Summer Hawaii wave, dolphin calls, people giggling
             </button>
@@ -54,7 +54,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("City drive at midnight, radio sound, car driving")
                 }
-                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left md:text-base lg:text-[26px]"
+                className="w-full p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-lg rounded-lg text-left lg:text-base 1440:text-[26px]"
             >
                 ♪ City drive at midnight, radio sound, car driving
             </button>
