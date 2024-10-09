@@ -25,7 +25,7 @@ const Command = () => {
                     />
                     <button
                         type="submit"
-                        className="bg-primary-PINK w-[6.88rem] h-10 rounded-[15px] p-0 text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base 1440:h-16 1440:text-[1.62rem] drop-shadow-[0_0px_1px_rgba(0,0,0,0.25)]"
+                        className="bg-white hover:bg-primary-PINK w-[6.88rem] h-10 rounded-[15px] p-0 text-primary-PINK hover:text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base 1440:h-16 1440:text-[1.62rem] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)]"
                     >
                         Hear
                     </button>
