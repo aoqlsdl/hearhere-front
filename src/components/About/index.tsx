@@ -10,7 +10,7 @@ const About = () => {
     return (
         <div
             ref={ref}
-            className="bg-lps bg-cover bg-bottom w-[calc(100vw - 10px)] overflow-x-hidden h-[58.5rem] flex flex-col items-center relative"
+            className="bg-lps bg-cover bg-bottom w-screen h-[58.5rem] flex flex-col items-center relative"
         >
             <motion.h1
                 className="text-[105px] text-white font-medium absolute top-9 select-none"

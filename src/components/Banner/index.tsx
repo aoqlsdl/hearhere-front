@@ -13,7 +13,7 @@ const Banner = () => {
     return (
         <div
             ref={ref}
-            className="w-[calc(100vw - 10px)] overflow-x-hidden flex flex-col justify-center text-center select-none"
+            className="w-screen h-full flex flex-col justify-center text-center select-none"
             // initial={{ y: 0 }} // 초기 위치 설정
             // animate={isOn ? { y: "4.25rem" } : { y: 0 }} // isOn이 true일 때 아래로 이동
             // transition={{ duration: 1, ease: "linear" }} // 애니메이션 지속 시간과 전환 설정
