@@ -12,7 +12,7 @@ const Command = () => {
             className="flex flex-col w-[55.42%] items-center mt-8 space-y-4 absolute top-[6.38rem] right-[3%]"
             initial={{ opacity: 0, y: 20 }} // 초기 상태: 투명하고 아래쪽으로 약간 이동
             animate={{ opacity: 1, y: 0 }} // 애니메이션: 완전히 불투명해지고 원래 위치로 이동
-            transition={{ delay: 1, duration: 1, ease: "easeInOut" }} // 애니메이션 지속 시간 설정
+            transition={{ delay: 1, duration: 1, ease: "linear" }} // 애니메이션 지속 시간 설정
         >
             <motion.div className="w-[55.42vw] h-[12.06rem] bg-primary-BEIGE100 relative">
                 {/* todo: onSubmit={} 추가 */}

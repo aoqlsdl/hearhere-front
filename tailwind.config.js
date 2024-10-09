@@ -70,6 +70,10 @@ export default {
                     fadeout: "fadeout 1s",
                 },
             },
+            backgroundImage: {
+                lps: "url('src/assets/img/about_bg.webp')",
+                "footer-texture": "url('/img/footer-texture.png')",
+            },
         },
     },
     plugins: [],

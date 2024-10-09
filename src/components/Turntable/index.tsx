@@ -55,24 +55,24 @@ const Turntable = () => {
             className="flex flex-col w-[calc(100vw - 10px)] overflow-x-hidden h-screen relative items-center select-none"
             initial={{ y: 0 }} // 초기 위치 설정
             animate={isOn ? { y: "4.25rem" } : { y: 0 }} // isOn이 true일 때 아래로 이동
-            transition={{ duration: 1, ease: "easeInOut" }} // 애니메이션 지속 시간과 전환 설정
+            transition={{ duration: 1, ease: "linear" }} // 애니메이션 지속 시간과 전환 설정
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
         >
             <motion.div
                 className="relative mt-8 bg-primary-SAND w-[707px] h-[479px] flex items-center"
                 animate={isOn ? { width: "100vw", height: "39.38rem" } : {}}
-                transition={{ duration: 1, ease: "easeInOut" }}
+                transition={{ duration: 1, ease: "linear" }}
             >
                 <motion.div
                     className="bg-black w-turntable h-turntable rounded-full flex justify-center items-center relative left-9 overflow-hidden"
                     animate={isOn ? { x: "-5.69rem", width: "36.38rem", height: "36.38rem" } : {}}
-                    transition={{ duration: 1, ease: "easeInOut" }}
+                    transition={{ duration: 1, ease: "linear" }}
                 >
                     <motion.div
                         className="bg-primary-PINK w-m_turntable h-m_turntable rounded-full flex justify-center items-center text-white"
                         animate={isOn ? { width: "16.06rem", height: "16.06rem" } : {}}
-                        transition={{ duration: 1, ease: "easeInOut" }}
+                        transition={{ duration: 1, ease: "linear" }}
                     />
                     <motion.span
                         className="text-white font-extrabold bg-transparent absolute bottom-[5.938rem] right-[2.938rem] text-point cursor-default"
