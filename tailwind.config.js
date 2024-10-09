@@ -71,8 +71,8 @@ export default {
                 },
             },
             backgroundImage: {
-                lps: "url('src/assets/img/about_bg.webp')",
-                lp: "url('src/assets/img/loading_lp.webp')",
+                lps: "url('/assets/img/about_bg.webp')",
+                lp: "url('/assets/img/loading_lp.webp')",
             },
         },
     },
