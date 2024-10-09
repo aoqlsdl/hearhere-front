@@ -28,7 +28,7 @@ const About = () => {
             >
                 Whatever You Want, Hear Here.
             </motion.p>
-            <motion.p className="text-center text-white absolute top-[22rem] text-[1.88rem] w-[28.13rem]">
+            <motion.p className="text-center text-white absolute top-[22rem] text-[1.88rem] w-[28.13rem] select-none">
                 You don’t have to go
                 <br />
                 anywhere.
