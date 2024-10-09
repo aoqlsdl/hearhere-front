@@ -4,9 +4,6 @@ export default {
     theme: {
         theme: {
             screens: {
-                sm: "768px",
-                md: "1024px",
-                lg: "1440px",
                 1440: "1440px",
             },
         },
@@ -20,6 +17,7 @@ export default {
                     BEIGE100: "#EEEEEE",
                     BEIGE200: "#CECECE",
                     BEIGE300: "#817674",
+                    GRAY300: "#47403F",
                 },
             },
             fontFamily: {
