@@ -11,13 +11,15 @@ export default {
             colors: {
                 primary: {
                     PINK: "#E24848",
-                    PINT_LIGHT: "#FFE5E5",
-                    L_BLACK: "#383838",
-                    S_BLACK: "#464444",
+                    PINK_LIGHT: "#FFE5E5",
+                    BLACK100: "#383838",
+                    BLACK200: "#464444",
+                    BLACK300: "#0B0606",
                     SAND: "#B5A7A4",
                     BEIGE100: "#EEEEEE",
                     BEIGE200: "#CECECE",
                     BEIGE300: "#817674",
+                    GRAY100: "#828282",
                     GRAY200: "#CFCFCF",
                     GRAY300: "#47403F",
                 },
@@ -75,6 +77,7 @@ export default {
             backgroundImage: {
                 lps: "url('/assets/img/about_bg.webp')",
                 lp: "url('/assets/img/loading_lp.webp')",
+                lp_sm: "url('/assets/img/login_lp_sliced.webp')",
             },
         },
     },

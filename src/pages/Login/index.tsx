@@ -1,7 +1,11 @@
+import LoginLeft from "../../components/Login/left";
+import LoginRight from "../../components/Login/right";
+
 const Login = () => {
     return (
-        <div>
-            <h1>Login Page</h1>
+        <div className="w-screen h-screen flex flex-row">
+            <LoginLeft />
+            <LoginRight />
         </div>
     );
 };
