@@ -19,7 +19,7 @@ const Banner = () => {
             // transition={{ duration: 1, ease: "linear" }} // 애니메이션 지속 시간과 전환 설정
         >
             <motion.h1
-                className="text-title text-primary-L_BLACK font-medium"
+                className="text-title text-primary-BLACK100 font-medium"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
                 transition={{ duration: 0.1, ease: "linear" }} // 애니메이션 설정
@@ -27,7 +27,7 @@ const Banner = () => {
                 Hear Here
             </motion.h1>
             <motion.p
-                className="text-subtitle text-primary-S_BLACK font-extralight"
+                className="text-subtitle text-primary-BLACK200 font-extralight"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
                 transition={{ duration: 0.1, ease: "linear" }}
