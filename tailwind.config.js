@@ -11,17 +11,19 @@ export default {
             colors: {
                 primary: {
                     PINK: "#E24848",
+                    PINT_LIGHT: "#FFE5E5",
                     L_BLACK: "#383838",
                     S_BLACK: "#464444",
                     SAND: "#B5A7A4",
                     BEIGE100: "#EEEEEE",
                     BEIGE200: "#CECECE",
                     BEIGE300: "#817674",
+                    GRAY200: "#CFCFCF",
                     GRAY300: "#47403F",
                 },
             },
             fontFamily: {
-                sans: ["Pretendard-Regular", "sans-serif"], // default font
+                pre: ["Pretendard"], // default
                 Inter: ["Inter", "sans-serif"],
             },
             width: {
