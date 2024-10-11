@@ -22,6 +22,8 @@ export default {
                     GRAY100: "#828282",
                     GRAY200: "#CFCFCF",
                     GRAY300: "#47403F",
+                    GRAY400: "#ECEBEB",
+                    GRAY500: "#F8F7F7",
                 },
             },
             fontFamily: {
@@ -78,6 +80,7 @@ export default {
                 lps: "url('/assets/img/about_bg.webp')",
                 lp: "url('/assets/img/loading_lp.webp')",
                 lp_sm: "url('/assets/img/login_lp_sliced.webp')",
+                lp_cover: "url('/assets/img/library_cover.webp')",
             },
         },
     },

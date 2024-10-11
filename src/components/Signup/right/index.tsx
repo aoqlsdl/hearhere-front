@@ -17,7 +17,7 @@ const SignupRight = () => {
                         onClick={() =>
                             handleRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
                         <img
                             src="/assets/icons/google.svg"
@@ -30,7 +30,7 @@ const SignupRight = () => {
                         onClick={() =>
                             handleRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
                         <img
                             src="/assets/icons/facebook.svg"
@@ -43,7 +43,7 @@ const SignupRight = () => {
                         onClick={() =>
                             handleRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
                         <img
                             src="/assets/icons/naver.svg"

@@ -16,7 +16,7 @@ const SigninLeft = () => {
                 <button
                     type="button"
                     onClick={() => handleRedirect("/signup")}
-                    className="rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white hover:bg-primary-PINK text-primary-PINK hover:text-white text-[1.5rem] border-2 border-primary-GRAY200"
+                    className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white hover:bg-primary-PINK text-primary-PINK hover:text-white text-[1.5rem] border-2 border-primary-GRAY200"
                 >
                     Sign Up
                 </button>
