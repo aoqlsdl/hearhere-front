@@ -2,11 +2,11 @@
 export default {
     content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
-        theme: {
-            screens: {
-                1440: "1440px",
-            },
+        // theme: {
+        screens: {
+            1440: "1441px",
         },
+        // },
         extend: {
             colors: {
                 primary: {

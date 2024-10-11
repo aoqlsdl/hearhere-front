@@ -1,10 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { IUser } from "../domain/entities/User";
+// import { IUser } from "../domain/entities/User";
 import Banner from "../components/Banner";
 import Navbar from "../components/Navbar";
 
 type Props = {
-    user: IUser | null;
+    // user: IUser | null;
+    user: "string";
 };
 
 const ProtectedLayout = ({ user }: Props) => {

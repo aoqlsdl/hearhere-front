@@ -1,33 +1,36 @@
 import { motion } from "framer-motion";
+// import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-// import { useRecoilState } from "recoil";
-// import { isOnState } from "../../recoil/turntable/atom";
+import { useLocation } from "react-router-dom";
 
 const Banner = () => {
-    // const [isOn] = useRecoilState(isOnState);
     const { ref, inView } = useInView({
         triggerOnce: false,
-        threshold: 0.9,
+        threshold: 0.8,
     });
+
+    const path = useLocation().pathname;
+    const title = path === "/library" ? "My Library" : "Hear Here";
+
+    // useEffect(() => {
+    //     chooseText();
+    // }, []);
 
     return (
         <div
             ref={ref}
-            className="w-screen h-full flex flex-col justify-center text-center select-none mt-[4.25rem]"
-            // initial={{ y: 0 }} // 초기 위치 설정
-            // animate={isOn ? { y: "4.25rem" } : { y: 0 }} // isOn이 true일 때 아래로 이동
-            // transition={{ duration: 1, ease: "linear" }} // 애니메이션 지속 시간과 전환 설정
+            className="w-screen h-[12.56rem] flex flex-col justify-center text-center select-none mt-[4.25rem]"
         >
             <motion.h1
-                className="text-title text-primary-BLACK100 font-medium"
+                className="text-[5rem] text-primary-BLACK100 font-[medium] leading-[5rem]"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
                 transition={{ duration: 0.1, ease: "linear" }} // 애니메이션 설정
             >
-                Hear Here
+                {title}
             </motion.h1>
             <motion.p
-                className="text-subtitle text-primary-BLACK200 font-extralight"
+                className="text-[1.81rem] text-primary-BLACK200 font-extralight"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
                 transition={{ duration: 0.1, ease: "linear" }}

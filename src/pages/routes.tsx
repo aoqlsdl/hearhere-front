@@ -12,23 +12,20 @@ import Signup from "./SignUp";
 
 const Routes = () => {
     // 로그인 여부에 따라 레이아웃 변경
-    const user = null;
+    const user = "string";
 
     return (
         <Router>
-            {user ? (
-                <Route element={<ProtectedLayout user={user} />}>
-                    <Route path="library/*" element={<Library />} />
-                    <Route path="player/*" element={<Player />} />
-                </Route>
-            ) : (
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    {/* <Route path="login" element={<Login />} /> */}
-                    <Route path="result" element={<Result />} />
-                    <Route path="customization" element={<Customize />} />
-                </Route>
-            )}
+            <Route element={<ProtectedLayout user={user} />}>
+                <Route path="library/*" element={<Library />} />
+                <Route path="player/*" element={<Player />} />
+            </Route>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                {/* <Route path="login" element={<Login />} /> */}
+                <Route path="result" element={<Result />} />
+                <Route path="customization" element={<Customize />} />
+            </Route>
             <Route element={<AuthLayout />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
