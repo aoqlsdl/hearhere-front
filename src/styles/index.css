@@ -3,6 +3,28 @@
 @tailwind utilities;
 
 :root {
+    --swiper-navigation-size: 6rem; /* 네비게이션 버튼의 크기 */
+    --swiper-navigation-top-offset: 50%; /* 네비게이션 버튼의 수직 위치 */
+    --swiper-navigation-sides-offset: 0; /* 네비게이션 버튼의 수평 위치 */
+    --swiper-navigation-color: rgba(255, 255, 255, 0); /* 네비게이션 버튼 투명하게 */
+}
+
+/* Swiper 네비게이션 버튼에 배경 이미지 설정 */
+.swiper-button-next,
+.swiper-button-prev {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 6rem;
+    height: 6rem;
+}
+
+.swiper-button-next {
+    background-image: url("/assets/icons/next_arrow.svg"); /* 'Next' 버튼의 이미지 경로 */
+}
+
+.swiper-button-prev {
+    background-image: url("/assets/icons/prev_arrow.svg"); /* 'Prev' 버튼의 이미지 경로 */
 }
 
 body {

@@ -1,17 +1,34 @@
 import ASMRList from "../../components/ASMRList";
 import asmrlist from "../../_mock/asmr.json";
 import NewList from "../../components/NewList";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const Library = () => {
     return (
-        <div className="flex overflow-x-scroll items-center justify-start w-screen h-full scrollbar-hide  mt-[2.5rem] mb-[1.38rem]">
-            <div className="flex flex-row space-x-[1.88rem] pl-[calc(50vw-14.845rem)] pr-[calc(50vw-14.845rem)]">
+        <>
+            <Swiper
+                navigation={true}
+                modules={[Navigation]}
+                slidesPerView={3}
+                centeredSlides={true}
+                grabCursor={true}
+                spaceBetween={30}
+            >
                 {asmrlist.map((asmr) => (
-                    <ASMRList key={asmr.id} asmr={asmr} />
+                    <SwiperSlide key={asmr.id}>
+                        <div className="w-full flex items-center">
+                            <ASMRList key={asmr.id} asmr={asmr} />
+                        </div>
+                    </SwiperSlide>
                 ))}
-                <NewList />
-            </div>
-        </div>
+                <SwiperSlide>
+                    <NewList key="new-list" />
+                </SwiperSlide>
+            </Swiper>
+        </>
     );
 };
 

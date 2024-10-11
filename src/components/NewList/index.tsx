@@ -1,12 +1,10 @@
-// import AddRoundedIcon from "@material-ui/icons/AddRounded";
-
 const NewList = () => {
     const handleRedirect = (url: string) => {
         window.location.href = url;
     };
     return (
         <div
-            className="w-[29.69rem] h-[33.5rem] 1440:h-[38.63rem] rounded-[49px] bg-primary-GRAY500 flex flex-col items-center justify-center cursor-pointer mr-[1.88rem]"
+            className="w-[29.69rem] h-[33.5rem] 1440:h-[38.63rem] rounded-[49px] bg-primary-GRAY500 flex flex-col items-center justify-center cursor-pointer"
             onClick={() => handleRedirect(`/`)}
         >
             <button
