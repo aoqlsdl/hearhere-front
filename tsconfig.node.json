@@ -4,22 +4,19 @@
         "lib": ["ES2023"],
         "module": "ESNext",
         "skipLibCheck": true,
-        "composite": true,
-        "declaration": true,
 
         /* Bundler mode */
         "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
         "isolatedModules": true,
         "moduleDetection": "force",
-        "noEmit": false,
-        "jsx": "react-jsx",
+        "noEmit": true,
 
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-        "outDir": "./dist"
+        "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "vite.config.ts", "tailwind-scrollbar-hide.d.ts"]
+    "include": ["vite.config.ts"]
 }
