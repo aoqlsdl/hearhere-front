@@ -17,11 +17,11 @@ const Command = () => {
             <motion.div className="w-[55.42vw] h-[12.06rem] bg-primary-BEIGE100 relative">
                 {/* todo: onSubmit={} 추가 */}
                 <form className="w-full h-[12.06rem] bg-transparent relative">
-                    <input
+                    <textarea
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Imagine yourself 'Here', where you most desire to be."
-                        className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 lg:text-base 1440:text-[26px]"
+                        className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 lg:text-base 1440:text-[26px] resize-none scrollbar-hide"
                     />
                     <button
                         type="submit"
