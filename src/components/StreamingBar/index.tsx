@@ -30,11 +30,6 @@ const StreamingBar = ({ music }: Props) => {
         audio.play();
     };
 
-    // 오디오가 종료될 때 다시 무작위로 재생
-    const handleEnded = (audio: HTMLAudioElement) => {
-        playAtRandomTime(audio); // 재생 종료 시 무작위 시간대에서 다시 재생
-    };
-
     // 재생/일시정지 토글
     const togglePlayPause = () => {
         if (isPlaying) {
