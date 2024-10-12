@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface Props {
     music: {
@@ -11,8 +12,11 @@ interface Props {
 const StreamingBar = ({ music }: Props) => {
     const musicInfo = music;
     // todo: 배포 후에도 chrome에서 자동재생 안 되는지 확인
-    const [isPlaying, setIsPlaying] = useState(true);
+    // => 안됨... 일단 false로 설정
+    const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [audioDuration, setAudioDuration] = useState<number | null>(0);
+    const [audioCurrentTime, setAudioCurrentTime] = useState<number>(0);
 
     // 배열을 평탄화하고 각 요소를 Audio 객체로 변환
     const audioRefs = useRef([
@@ -33,11 +37,18 @@ const StreamingBar = ({ music }: Props) => {
     // 재생 시간 업데이트
     const handleTimeUpdate = () => {
         const currentTime = audioRefs.current[0].currentTime;
+        setAudioCurrentTime(currentTime);
         const duration = audioRefs.current[0].duration;
-        setProgress(currentTime / duration);
+        setProgress(audioCurrentTime / duration);
     };
 
     useEffect(() => {
+        // 메타데이터 로드 이벤트 리스너 추가
+        const audio = audioRefs.current[0];
+        audio.addEventListener("loadedmetadata", () => {
+            setAudioDuration(audio.duration); // 오디오 길이를 state로 설정
+        });
+
         // 배열의 각 audio 요소에 ontimeupdate 이벤트 리스너 추가
         audioRefs.current.forEach((audio) => {
             audio.ontimeupdate = handleTimeUpdate;
@@ -51,6 +62,16 @@ const StreamingBar = ({ music }: Props) => {
         };
     }, []);
 
+    // 경로가 변경될 때 모든 오디오를 일시 중지
+    const location = useLocation();
+    useEffect(() => {
+        return () => {
+            // 클린업 함수를 사용하여 컴포넌트가 언마운트될 때 모든 오디오를 일시 중지
+            audioRefs.current.forEach((audio) => audio.pause());
+            setIsPlaying(false);
+        };
+    }, [location]);
+
     // 현재 재생 시간과 총 재생 시간을 00:00 형식으로 표시
     const currentMin = Math.floor(audioRefs.current[0].currentTime / 60);
     const currentSec = Math.floor(audioRefs.current[0].currentTime % 60);
@@ -58,11 +79,13 @@ const StreamingBar = ({ music }: Props) => {
     const formattedCurrentSec = currentSec < 10 ? `0${currentSec}` : currentSec;
     const currentTime = `${formattedCurrentMin} : ${formattedCurrentSec}`;
 
-    const durationMin = Math.floor(audioRefs.current[0].duration / 60);
-    const durationSec = Math.floor(audioRefs.current[0].duration % 60);
+    // audioDuration 값이 null이 아닐 때만 계산
+    const durationMin = audioDuration ? Math.floor(audioDuration / 60) : 0;
+    const durationSec = audioDuration ? Math.floor(audioDuration % 60) : 0;
     const formattedDurationMin = durationMin < 10 ? `0${durationMin}` : durationMin;
     const formattedDurationSec = durationSec < 10 ? `0${durationSec}` : durationSec;
-    const duration = `${formattedDurationMin}:${formattedDurationSec}`;
+    const duration = `${formattedDurationMin} : ${formattedDurationSec}`;
+
     return (
         <div>
             {/* progress bar + time */}
@@ -80,7 +103,10 @@ const StreamingBar = ({ music }: Props) => {
             </div>
             <div className="mt-6 flex flex-row w-[13.39rem] justify-between m-auto mb-[3.25rem]">
                 <button className="bg-forward bg-cover bg-no-repeat w-6 h-6" />
-                <button onClick={togglePlayPause}>
+                <button
+                    onClick={togglePlayPause}
+                    className="w-[1.81rem] h-[1.81rem] flex items-center justify-center"
+                >
                     {isPlaying ? (
                         <img src="/assets/icons/pause.svg" />
                     ) : (
