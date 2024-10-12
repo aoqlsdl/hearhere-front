@@ -22,7 +22,6 @@ const Routes = () => {
             </Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                {/* <Route path="login" element={<Login />} /> */}
                 <Route path="result" element={<Result />} />
                 <Route path="customization" element={<Customize />} />
             </Route>

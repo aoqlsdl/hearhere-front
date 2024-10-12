@@ -1,7 +1,9 @@
+import MusicPlayer from "../../components/MusicPlayer";
+
 const Player = () => {
     return (
-        <div>
-            <h1>Player</h1>
+        <div className="overflow-hidden flex items-center justify-center">
+            <MusicPlayer />
         </div>
     );
 };

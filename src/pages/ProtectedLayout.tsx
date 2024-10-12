@@ -1,7 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 // import { IUser } from "../domain/entities/User";
 import Banner from "../components/Banner";
 import Navbar from "../components/Navbar";
+import BackNavbar from "../components/Navbar/index-back";
 
 type Props = {
     // user: IUser | null;
@@ -14,10 +15,13 @@ const ProtectedLayout = ({ user }: Props) => {
     if (!user) {
         return <Navigate to="/login" />;
     }
+
+    const location = useLocation().pathname;
+
     return (
         <>
             <div className="w-screen">
-                <Navbar />
+                {location.includes("player") ? <BackNavbar /> : <Navbar />}
                 <Banner />
                 <main>
                     <Outlet />
