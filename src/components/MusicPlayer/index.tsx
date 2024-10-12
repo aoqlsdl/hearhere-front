@@ -6,7 +6,7 @@ const MusicPlayer = () => {
     const musicInfo = music;
 
     return (
-        <div className="w-[47.31rem] rounded-t-[2rem] bg-primary-GRAY600 drop-shadow-[5px_4px_10px_0px_rgba(0, 0, 0, 0.25)] flex flex-col items-center relative 1440:rounded-b-[2rem]">
+        <div className="w-[47.31rem] rounded-t-[2rem] bg-primary-GRAY600 drop-shadow-[5px_10px_4px_rgba(0,0,0,0.25)] flex flex-col items-center relative 1440:rounded-b-[2rem]">
             {/* top */}
             <div className="w-full flex flex-col text-center items-center mt-[3.55rem]">
                 <button
