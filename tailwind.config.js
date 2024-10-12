@@ -24,11 +24,14 @@ export default {
                     GRAY300: "#47403F",
                     GRAY400: "#ECEBEB",
                     GRAY500: "#F8F7F7",
+                    GRAY600: "#E7E7E7",
+                    GRAY700: "#464444",
                 },
             },
             fontFamily: {
                 pre: ["Pretendard"], // default
                 Inter: ["Inter", "sans-serif"],
+                Luxurious: ["LuxuriousScript"],
             },
             width: {
                 "707px": "707px",
@@ -58,29 +61,24 @@ export default {
                 "5.313rem": "5.313rem",
             },
             keyframes: {
-                fadein: {
-                    "0%": { opacity: "0", transform: "translate(0)" },
-                    "100%": { opacity: "1", transform: "translate(0)" },
+                slide: {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(-50%)" },
                 },
-                fadeout: {
-                    "0%": {
-                        opacity: "1",
-                    },
-                    "100%": {
-                        opacity: "0",
-                        transform: "translate(0)",
-                    },
-                },
-                animation: {
-                    fadein: "fadein 0.5s",
-                    fadeout: "fadeout 1s",
-                },
+            },
+            animation: {
+                slide: "slide 15s linear infinite",
             },
             backgroundImage: {
                 lps: "url('/assets/img/about_bg.webp')",
                 lp: "url('/assets/img/loading_lp.webp')",
                 lp_sm: "url('/assets/img/login_lp_sliced.webp')",
                 lp_cover: "url('/assets/img/library_cover.webp')",
+                tune: "url('/assets/icons/tune.svg')",
+                play: "url('/assets/icons/play.svg')",
+                pause: "url('/assets/icons/pause.svg')",
+                forward: "url('/assets/icons/forward.svg')",
+                backward: "url('/assets/icons/backward.svg')",
             },
         },
     },

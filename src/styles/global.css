@@ -46,8 +46,16 @@
     font-family: Pretendard;
     font-weight: 800;
     src:
-        local("Pretendard Regular"),
+        local("Pretendard Extrabold"),
         url("./assets/fonts/Pretendard-Extrabold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: LuxuriousScript;
+    font-weight: 400;
+    src:
+        local("LuxuriousSript Regular"),
+        url("/src/assets/fonts/LuxuriousScript-Regular.ttf") format("truetype");
 }
 /* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap"); */
 
