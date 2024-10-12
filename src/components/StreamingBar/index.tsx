@@ -9,7 +9,7 @@ interface Props {
     };
 }
 
-// todo: webaudio api, audiocontext를 사용하여 음악 스트리밍 구현하기
+// todo: api 연결 후 webaudio api, audiocontext를 사용하여 음악 스트리밍 구현하기
 const StreamingBar = ({ music }: Props) => {
     const musicInfo = music;
     const [isPlaying, setIsPlaying] = useState(false);
@@ -49,6 +49,29 @@ const StreamingBar = ({ music }: Props) => {
         setAudioCurrentTime(currentTime);
         const duration = audioRefs.current[0].duration;
         setProgress(audioCurrentTime / duration);
+    };
+
+    // 10초 앞으로 이동
+    const handleForward = () => {
+        audioRefs.current[0].currentTime -= 10;
+    };
+
+    // 10초 뒤로 이동
+    const handleBackward = () => {
+        audioRefs.current[0].currentTime += 10;
+    };
+
+    // 클릭한 위치로 재생 시간 변경
+    // fix: 위치 계산 오류 수정
+    const handleProgressBar = (e: React.MouseEvent<HTMLDivElement>) => {
+        const progressBar = e.currentTarget;
+        const rect = progressBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const newTime = (clickX / rect.width) * audioRefs.current[0].duration;
+        audioRefs.current[0].currentTime = newTime;
+        console.log(
+            `Clicked position: ${clickX}, Progress bar width: ${rect.width}, New time: ${newTime}`
+        );
     };
 
     useEffect(() => {
@@ -103,18 +126,24 @@ const StreamingBar = ({ music }: Props) => {
             {/* progress bar + time */}
             <div className="flex flex-row w-full justify-center items-center mt-[2.48rem]">
                 <span className="text-[1.25rem] font-light mr-[0.94rem]">{currentTime}</span>
-                <div className="w-[29.44rem] h-1 bg-primary-BLACK300">
+                <div className="w-[29.44rem] h-1 bg-primary-BLACK300" onClick={handleProgressBar}>
                     <div
                         className="bg-primary-BLACK300 h-full relative flex items-center"
                         style={{ width: `${progress * 100}%` }}
                     >
-                        <div className="w-[1.44rem] h-[1.44rem] rounded-full bg-primary-PINK absolute right-[0.72]" />
+                        <div
+                            className="w-[1.44rem] h-[1.44rem] rounded-full bg-primary-PINK absolute"
+                            style={{ left: `calc(${progress * 100}% - 0.72rem)` }}
+                        />
                     </div>
                 </div>
                 <span className="text-[1.25rem] font-light ml-[0.94rem]">{duration}</span>
             </div>
             <div className="mt-6 flex flex-row w-[13.39rem] justify-between m-auto mb-[3.25rem]">
-                <button className="bg-forward bg-cover bg-no-repeat w-6 h-6" />
+                <button
+                    onClick={handleForward}
+                    className="bg-forward bg-cover bg-no-repeat w-6 h-6"
+                />
                 <button
                     onClick={togglePlayPause}
                     className="w-[1.81rem] h-[1.81rem] flex items-center justify-center"
@@ -125,7 +154,10 @@ const StreamingBar = ({ music }: Props) => {
                         <img src="/assets/icons/play.svg" />
                     )}
                 </button>
-                <button className="bg-backward bg-cover bg-no-repeat w-6 h-6" />
+                <button
+                    onClick={handleBackward}
+                    className="bg-backward bg-cover bg-no-repeat w-6 h-6"
+                />
             </div>
         </div>
     );
