@@ -9,27 +9,41 @@ interface Props {
     };
 }
 
+// todo: webaudio api, audiocontext를 사용하여 음악 스트리밍 구현하기
 const StreamingBar = ({ music }: Props) => {
     const musicInfo = music;
-    // todo: 배포 후에도 chrome에서 자동재생 안 되는지 확인
-    // => 안됨... 일단 false로 설정
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [audioDuration, setAudioDuration] = useState<number | null>(0);
     const [audioCurrentTime, setAudioCurrentTime] = useState<number>(0);
 
-    // 배열을 평탄화하고 각 요소를 Audio 객체로 변환
+    // 오디오 객체를 한 번만 생성하고 유지
     const audioRefs = useRef([
         new Audio(musicInfo.musicURL),
         ...musicInfo.soundUrls.map((url) => new Audio(url)),
     ]);
+
+    // 무작위 시간에 오디오 재생 함수
+    const playAtRandomTime = (audio: HTMLAudioElement) => {
+        const randomTime = Math.random() * audio.duration; // 무작위 시간 설정
+        audio.currentTime = randomTime;
+        audio.play();
+    };
+
+    // 오디오가 종료될 때 다시 무작위로 재생
+    const handleEnded = (audio: HTMLAudioElement) => {
+        playAtRandomTime(audio); // 재생 종료 시 무작위 시간대에서 다시 재생
+    };
 
     // 재생/일시정지 토글
     const togglePlayPause = () => {
         if (isPlaying) {
             audioRefs.current.forEach((audio) => audio.pause());
         } else {
-            audioRefs.current.forEach((audio) => audio.play());
+            audioRefs.current[0].play(); // 기본 음악 재생
+            audioRefs.current.slice(1).forEach((audio) => {
+                playAtRandomTime(audio); // 다른 오디오들은 무작위로 재생
+            });
         }
         setIsPlaying(!isPlaying);
     };
@@ -43,21 +57,25 @@ const StreamingBar = ({ music }: Props) => {
     };
 
     useEffect(() => {
-        // 메타데이터 로드 이벤트 리스너 추가
         const audio = audioRefs.current[0];
         audio.addEventListener("loadedmetadata", () => {
-            setAudioDuration(audio.duration); // 오디오 길이를 state로 설정
+            setAudioDuration(audio.duration);
         });
 
-        // 배열의 각 audio 요소에 ontimeupdate 이벤트 리스너 추가
-        audioRefs.current.forEach((audio) => {
-            audio.ontimeupdate = handleTimeUpdate;
+        // 각 오디오에 'ended' 이벤트 리스너 추가
+        audio?.addEventListener("timeupdate", handleTimeUpdate);
+        audio?.addEventListener("ended", () => {
+            if (audio) {
+                playAtRandomTime(audio); // 재생 종료 시 무작위 시간대에서 다시 재생
+            }
         });
 
-        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             audioRefs.current.forEach((audio) => {
-                audio.ontimeupdate = null;
+                if (audio) {
+                    audio.removeEventListener("timeupdate", handleTimeUpdate);
+                    audio.removeEventListener("ended", () => playAtRandomTime(audio));
+                }
             });
         };
     }, []);
@@ -66,7 +84,6 @@ const StreamingBar = ({ music }: Props) => {
     const location = useLocation();
     useEffect(() => {
         return () => {
-            // 클린업 함수를 사용하여 컴포넌트가 언마운트될 때 모든 오디오를 일시 중지
             audioRefs.current.forEach((audio) => audio.pause());
             setIsPlaying(false);
         };
