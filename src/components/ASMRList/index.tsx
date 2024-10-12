@@ -9,7 +9,7 @@ const ASMRList = ({ asmr }: Props) => {
     return (
         <div className="w-[29.69rem] h-[33.5rem] 1440:h-[38.63rem] rounded-[49px] bg-primary-GRAY400 flex flex-col items-center justify-center cursor-pointer">
             <div className="w-[20rem] h-[20rem] 1440:w-[24rem] 1440:h-[24rem] rounded-full bg-lp_cover bg-cover flex justify-center items-center drop-shadow-[14px_14px_4px_rgba(0,0,0,0.25)] cursor-default">
-                <div className="w-[9rem] h-[9rem] 1440:w-[10.63rem] 1440:h-[10.63rem] rounded-full bg-white text-center leading-[9rem] 1440:leading-[10.63rem] select-none cursor-default">
+                <div className="w-[9rem] h-[9rem] font-Luxurious 1440:w-[10.63rem] 1440:h-[10.63rem] rounded-full bg-white text-center leading-[9rem] 1440:leading-[10.63rem] select-none cursor-default">
                     {asmr.title}
                 </div>
             </div>
