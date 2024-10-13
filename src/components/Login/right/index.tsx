@@ -1,7 +1,6 @@
+import { useRedirect } from "../../../hooks/useRedirect";
+
 const LoginRight = () => {
-    const handleRedirect = (url: string) => {
-        window.location.href = url;
-    };
     return (
         <div className="w-[59.58%] bg-white h-screen">
             <div className="h-screen relative flex flex-col text-center items-center -mt-20 1440:-mt-0">
@@ -15,7 +14,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            handleRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
                         className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
@@ -28,7 +27,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            handleRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
                         className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
@@ -41,7 +40,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            handleRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
                         className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
                     >
@@ -53,7 +52,7 @@ const LoginRight = () => {
                     </button>
                 </div>
                 <span
-                    onClick={() => handleRedirect("/")}
+                    onClick={() => useRedirect("/")}
                     className="text-primary-GRAY100 underline text-4 1440:text-[1.19rem] mt-[3.75rem] cursor-pointer"
                 >
                     Stay logged out

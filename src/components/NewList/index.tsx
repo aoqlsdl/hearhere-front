@@ -1,11 +1,10 @@
+import { useRedirect } from "../../hooks/useRedirect";
+
 const NewList = () => {
-    const handleRedirect = (url: string) => {
-        window.location.href = url;
-    };
     return (
         <div
             className="w-[29.69rem] h-[33.5rem] 1440:h-[38.63rem] rounded-[49px] bg-primary-GRAY500 flex flex-col items-center justify-center cursor-pointer"
-            onClick={() => handleRedirect(`/`)}
+            onClick={() => useRedirect(`/`)}
         >
             <button
                 type="button"

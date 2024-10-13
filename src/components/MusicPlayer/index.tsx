@@ -1,6 +1,7 @@
 import music from "../../_mock/sound.json";
 import SlidingText from "../SlidingText";
 import StreamingBar from "../StreamingBar";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const MusicPlayer = () => {
     const musicInfo = music;
@@ -12,6 +13,7 @@ const MusicPlayer = () => {
                 <button
                     type="button"
                     className="bg-tune bg-cover w-[1.4rem] h-[1.4rem] absolute top-5 right-6"
+                    onClick={() => useRedirect(`/customization/${musicInfo.id}`)}
                 />
                 <span className="text-2xl font-extralight text-primary-GRAY700">Here is</span>
                 <SlidingText title={musicInfo.asmrTitle} />
