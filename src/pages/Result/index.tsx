@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import MusicPlayer from "../../components/MusicPlayer";
-import { useOpenModal } from "../../hooks/useModal";
+// import { useOpenModal } from "../../hooks/useModal";
 import LoginModal from "../../components/LoginModal";
 
 const Result = () => {
