@@ -10,11 +10,15 @@ const Banner = () => {
     });
 
     const path = useLocation().pathname;
-    const title = path === "/library" ? "My Library" : "Hear Here";
-
-    // useEffect(() => {
-    //     chooseText();
-    // }, []);
+    const title =
+        path === "/library"
+            ? "My Library"
+            : path.includes("/customization")
+              ? "Customize Here"
+              : "Hear Here";
+    const subtitle = path.includes("/customization")
+        ? "Record Cafe with Jazz ASMR"
+        : "Whatever You Want, Hear Here.";
 
     return (
         <div
@@ -29,14 +33,25 @@ const Banner = () => {
             >
                 {title}
             </motion.h1>
-            <motion.p
-                className="text-[1.81rem] text-primary-BLACK200 font-extralight"
-                initial={{ opacity: 0, y: -20 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
-                transition={{ duration: 0.1, ease: "linear" }}
-            >
-                Whatever You Want, Hear Here.
-            </motion.p>
+            {path.includes("/customization") ? (
+                <motion.p
+                    className="text-[1.81rem] text-primary-PINK font-extralight"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
+                    transition={{ duration: 0.1, ease: "linear" }}
+                >
+                    {subtitle}
+                </motion.p>
+            ) : (
+                <motion.p
+                    className="text-[1.81rem] text-primary-BLACK200 font-extralight"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
+                    transition={{ duration: 0.1, ease: "linear" }}
+                >
+                    {subtitle}
+                </motion.p>
+            )}
         </div>
     );
 };

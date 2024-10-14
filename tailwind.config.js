@@ -26,6 +26,7 @@ export default {
                     GRAY500: "#F8F7F7",
                     GRAY600: "#E7E7E7",
                     GRAY700: "#464444",
+                    GRAY800: "#F4F4F4",
                 },
             },
             fontFamily: {
@@ -65,9 +66,20 @@ export default {
                     "0%": { transform: "translateX(0)" },
                     "100%": { transform: "translateX(-50%)" },
                 },
+                fadein: {
+                    "0%": { opacity: 0 },
+                    "100%": { opacity: 1 },
+                },
+                fadeout: {
+                    "0%": { opacity: 1 },
+                    "100%": { opacity: 0 },
+                },
             },
             animation: {
                 slide: "slide 15s linear infinite",
+                fadein: "fadein 0.2s ease-in-out",
+                fadeinSlowly: "fadein 0.5s ease-in-out",
+                fadeout: "fadeout 0.2s ease-in-out",
             },
             backgroundImage: {
                 lps: "url('/assets/img/about_bg.webp')",
@@ -79,6 +91,7 @@ export default {
                 pause: "url('/assets/icons/pause.svg')",
                 forward: "url('/assets/icons/forward.svg')",
                 backward: "url('/assets/icons/backward.svg')",
+                save: "url('/assets/icons/save.svg')",
             },
         },
     },

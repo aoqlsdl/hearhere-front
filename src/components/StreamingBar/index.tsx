@@ -69,9 +69,7 @@ const StreamingBar = ({ music }: Props) => {
         const clickX = e.clientX - rect.left;
         const newTime = (clickX / rect.width) * audioRefs.current[0].duration;
         audioRefs.current[0].currentTime = newTime;
-        console.log(
-            `Clicked position: ${clickX}, Progress bar width: ${rect.width}, New time: ${newTime}`
-        );
+        setProgress((clickX / rect.width) * 100);
     };
 
     useEffect(() => {
@@ -129,11 +127,11 @@ const StreamingBar = ({ music }: Props) => {
                 <div className="w-[29.44rem] h-1 bg-primary-BLACK300" onClick={handleProgressBar}>
                     <div
                         className="bg-primary-BLACK300 h-full relative flex items-center"
-                        style={{ width: `${progress * 100}%` }}
+                        style={{ width: `${progress}%` }}
                     >
                         <div
-                            className="w-[1.44rem] h-[1.44rem] rounded-full bg-primary-PINK absolute"
-                            style={{ left: `calc(${progress * 100}% - 0.72rem)` }}
+                            className="w-[1.44rem] h-[1.44rem] rounded-full bg-primary-PINK absolute left-0"
+                            style={{ left: `calc(${progress}%` }}
                         />
                     </div>
                 </div>
