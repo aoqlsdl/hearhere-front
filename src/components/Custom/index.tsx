@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Custom = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying] = useState(false);
     return (
         <div className="flex flex-col">
             {isPlaying ? (
