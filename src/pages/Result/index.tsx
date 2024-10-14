@@ -14,16 +14,9 @@ const Result = () => {
 
     // 로그인 구현되면 다시 수정
     // todo: 이후에 로그인 기능이 추가되면 hook 사용
-    const [isLogin] = useState(false);
+    // const [isLogin] = useState(false);
     const [isLoginOn, setIsLoginOn] = useState(false);
 
-    const handleSave = () => {
-        if (!isLogin) {
-            useOpenModal(setIsLoginOn);
-        } else {
-            // alert("Saved!");
-        }
-    };
     return (
         <div className="w-screen h-[calc(100vh - 2.58rem)] flex justify-center relative">
             {isLoading ? <Loading /> : <MusicPlayer />}

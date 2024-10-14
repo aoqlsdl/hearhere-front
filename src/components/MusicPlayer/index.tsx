@@ -12,6 +12,7 @@ const MusicPlayer = () => {
     // todo: 이후에 로그인 기능이 추가되면 hook 사용
     const [isLogin] = useState(false);
     const [isLoginOn, setIsLoginOn] = useState(false);
+    console.log(isLoginOn);
 
     const handleSave = () => {
         if (!isLogin) {
