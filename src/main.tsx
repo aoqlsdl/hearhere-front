@@ -10,7 +10,6 @@ import ReactGA from "react-ga4";
 
 // 운영 환경에서만 구글 애널리틱스 초기화
 if (import.meta.env.VITE_REACT_APP_GA4_CODE) {
-    console.log("GA4 Code in production: ", import.meta.env.VITE_REACT_APP_GA4_CODE);
     ReactGA.initialize(import.meta.env.VITE_REACT_APP_GA4_CODE);
 }
 

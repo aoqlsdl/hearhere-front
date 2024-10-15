@@ -17,7 +17,6 @@ const RouteChangeTracker = () => {
     // location 변경 감지시 pageview 이벤트 전송
     useEffect(() => {
         if (initialized) {
-            console.log("Tracking pageview for: ", location.pathname);
             ReactGA.set({ page: location.pathname });
             ReactGA.send("pageview");
         }
