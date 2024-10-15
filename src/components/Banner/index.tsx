@@ -26,7 +26,7 @@ const Banner = () => {
             className="w-screen h-[12.56rem] flex flex-col justify-center text-center select-none mt-[4.25rem]"
         >
             <motion.h1
-                className="text-[5rem] text-primary-BLACK100 font-[medium] leading-[5rem]"
+                className="text-[5rem] text-primary-BLACK100 font-pre font-medium leading-[5rem]"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
                 transition={{ duration: 0.1, ease: "linear" }} // 애니메이션 설정

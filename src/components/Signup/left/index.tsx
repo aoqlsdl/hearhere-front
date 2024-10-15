@@ -10,7 +10,7 @@ const SignupLeft = () => {
                 <p className="text-[1.3rem] 1440:text-[1.88rem] font-extralight leading-[3rem] mt-[2.13rem] mb-[1.75rem]">
                     Already have an account?
                 </p>
-                <p className="text-[1.3rem] mb-[3.81rem] 1440:text-[1.88rem] leading-10 text-primary-BLACK300">
+                <p className="text-[1.3rem] mb-[3.81rem] 1440:text-[1.88rem] text-center leading-10 text-primary-BLACK300">
                     Make your own account and
                     <br />
                     create your own ASMR!

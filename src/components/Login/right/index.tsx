@@ -16,39 +16,39 @@ const LoginRight = () => {
                         onClick={() =>
                             useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
                         <img
                             src="/assets/icons/google.svg"
-                            className="w-[1.69rem] h-[1.69rem] mr-4"
+                            className="w-[1.5rem] h-[1.5rem] ml-[2rem] mr-[1rem]"
                         />
-                        Log in with Google
+                        <span className="left-[4rem] top-[1.125rem]">Log in with Google</span>
                     </button>
                     <button
                         type="button"
                         onClick={() =>
                             useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
                         <img
                             src="/assets/icons/facebook.svg"
-                            className="w-[1.69rem] h-[1.69rem] mr-4"
+                            className="w-[1.5rem] h-[1.5rem] ml-[2rem] mr-[1rem]"
                         />
-                        Log in with Facebook
+                        <span className="left-[4rem] top-[1.125rem]">Log in with Facebook</span>
                     </button>
                     <button
                         type="button"
                         onClick={() =>
                             useRedirect("http://localhost:8080/oauth2/authorization/google")
                         }
-                        className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white  text-black text-[1.13rem] border-2 hover:border-primary-PINK flex flex-row justify-center items-center"
+                        className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
                         <img
                             src="/assets/icons/naver.svg"
-                            className="w-[1.69rem] h-[1.69rem] mr-4"
+                            className="w-[1.5rem] h-[1.5rem] ml-[2rem] mr-[1rem]"
                         />
-                        Log in with Naver
+                        <span className="left-[4rem] top-[1.125rem]">Log in with Naver</span>
                     </button>
                 </div>
                 <span

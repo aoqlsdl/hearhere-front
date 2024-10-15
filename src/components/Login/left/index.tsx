@@ -7,7 +7,7 @@ const SigninLeft = () => {
                 <h2 className="text-[3rem] font-bold text-primary-PINK 1440:text-[50px] mt-[16.19rem]">
                     New Here?
                 </h2>
-                <p className="text-[1.3rem] mt-[3.5rem] mb-[3.5rem] 1440:text-[1.88rem] leading-10 text-primary-BLACK300">
+                <p className="text-[1.3rem] mt-[3.5rem] mb-[3.5rem] 1440:text-[1.88rem] text-center leading-10 text-primary-BLACK300">
                     Make your own account and
                     <br />
                     create your own ASMR!
