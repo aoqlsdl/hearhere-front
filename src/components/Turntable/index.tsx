@@ -2,11 +2,10 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Command from "../Command";
 import { useRecoilState } from "recoil";
-import { isOnState, countState } from "../../recoil/turntable/atom";
+import { isOnState } from "../../recoil/turntable/atom";
 
 const Turntable = () => {
     const [isOn, setIsOn] = useRecoilState(isOnState);
-    const [count, setCount] = useRecoilState(countState);
     const [isDragging, setIsDragging] = useState(false);
     const [angle, setAngle] = useState(0); // 톤암의 회전 각도 상태
     const tonearmRef = useRef<HTMLDivElement>(null);
@@ -41,12 +40,7 @@ const Turntable = () => {
     // 마우스 버튼을 떼면 드래그 종료
     const handleMouseUp = () => {
         if (angle >= 40 && angle <= 50) {
-            if (count === 0) {
-                setCount(count + 1);
-            }
             setIsOn(true);
-        } else if (count === 0) {
-            setIsOn(false);
         }
     };
 

@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Command = () => {
     const [inputValue, setInputValue] = useState("");
+    const navigate = useNavigate();
 
     const handleButtonClick = (text: string) => {
         setInputValue(text); // 버튼 클릭 시 입력 필드에 텍스트 삽입
+    };
+
+    const handleSubmit = () => {
+        navigate("/result", { state: { userPrompt: inputValue } });
     };
     return (
         <motion.div
@@ -24,8 +30,9 @@ const Command = () => {
                         className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 lg:text-base 1440:text-[26px] resize-none scrollbar-hide"
                     />
                     <button
-                        type="submit"
+                        type="button"
                         className="bg-white hover:bg-primary-PINK w-[6.88rem] h-10 rounded-[15px] p-0 text-primary-PINK hover:text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base 1440:h-16 1440:text-[1.62rem] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)]"
+                        onClick={handleSubmit}
                     >
                         Hear
                     </button>
