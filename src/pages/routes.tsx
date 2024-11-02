@@ -9,16 +9,18 @@ import Result from "./Result";
 import Customize from "./Customize";
 import AuthLayout from "./AuthLayout";
 import Signup from "./SignUp";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user/atom";
 
 const Routes = () => {
     // 로그인 여부에 따라 레이아웃 변경
-    const user = "string";
+    const user = useRecoilState(userState)[0];
 
     return (
         <Router>
-            <Route element={<ProtectedLayout user={user} />}>
-                <Route path="library/*" element={<Library />} />
+            <Route element={<ProtectedLayout username={user.username} />}>
                 <Route path="player/*" element={<Player />} />
+                <Route path="library/*" element={<Library />} />
             </Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />

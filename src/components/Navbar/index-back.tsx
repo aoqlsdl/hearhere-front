@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+// import { useRecoilValue } from "recoil";
+// import { userState } from "../../recoil/user/atom";
 
 const BackNavbar = () => {
+    // const user = useRecoilValue(userState);
     return (
         <nav className="flex justify-between top-0 w-screen h-[4.25rem] fixed z-50">
             <NavLink

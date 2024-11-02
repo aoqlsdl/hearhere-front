@@ -14,7 +14,10 @@ const SignupRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect(
+                                import.meta.env.VITE_REACT_APP_BASE_URL +
+                                    "oauth2/authorization/google"
+                            )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
@@ -27,20 +30,26 @@ const SignupRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect(
+                                import.meta.env.VITE_REACT_APP_BASE_URL +
+                                    "oauth2/authorization/kakao"
+                            )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
                         <img
-                            src="/assets/icons/facebook.svg"
+                            src="/assets/icons/kakao.svg"
                             className="w-[1.5rem] h-[1.5rem] ml-[2rem] mr-[1rem]"
                         />
-                        <span>Sign up with Facebook</span>
+                        <span>Sign up with Kakao</span>
                     </button>
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect("http://localhost:8080/oauth2/authorization/google")
+                            useRedirect(
+                                import.meta.env.VITE_REACT_APP_BASE_URL +
+                                    "oauth2/authorization/naver"
+                            )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
                     >
