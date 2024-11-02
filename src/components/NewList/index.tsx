@@ -1,10 +1,11 @@
 import { useRedirect } from "../../hooks/useRedirect";
 
 const NewList = () => {
+    const redirect = useRedirect();
     return (
         <div
             className="w-[29.69rem] h-[33.5rem] 1440:h-[38.63rem] rounded-[49px] bg-primary-GRAY500 flex flex-col items-center justify-center cursor-pointer"
-            onClick={() => useRedirect(`/`)}
+            onClick={() => redirect("/")}
         >
             <button
                 type="button"

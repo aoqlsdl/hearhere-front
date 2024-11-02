@@ -1,6 +1,7 @@
 import { useRedirect } from "../../../hooks/useRedirect";
 
 const SignupLeft = () => {
+    const redirect = useRedirect();
     return (
         <div className="w-[40.42%] h-screen bg-primary-PINK_LIGHT bg-lp_sm bg-bottom bg-no-repeat bg-[length:38.26rem_21.19rem] overflow-hidden flex flex-col">
             <div className="h-screen flex flex-col ext-center items-center -mt-20 1440:-mt-0">
@@ -17,7 +18,7 @@ const SignupLeft = () => {
                 </p>
                 <button
                     type="button"
-                    onClick={() => useRedirect("/login")}
+                    onClick={() => redirect("/login")}
                     className="transition ease-in-out rounded-full w-[18rem] 1440:w-[20.94rem] h-[4rem] 1440:h-[5rem] bg-white hover:bg-primary-PINK text-primary-PINK hover:text-white text-[1.5rem] border-2 border-primary-GRAY200"
                 >
                     Log in

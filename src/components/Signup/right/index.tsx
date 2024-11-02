@@ -1,6 +1,7 @@
 import { useRedirect } from "../../../hooks/useRedirect";
 
 const SignupRight = () => {
+    const redirect = useRedirect();
     return (
         <div className="w-[59.58%] bg-white h-screen">
             <div className="h-screen relative flex flex-col text-center items-center -mt-20 1440:-mt-0">
@@ -14,7 +15,7 @@ const SignupRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/google"
                             )
@@ -30,7 +31,7 @@ const SignupRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/kakao"
                             )
@@ -46,7 +47,7 @@ const SignupRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/naver"
                             )
@@ -61,7 +62,7 @@ const SignupRight = () => {
                     </button>
                 </div>
                 <span
-                    onClick={() => useRedirect("/")}
+                    onClick={() => redirect("/")}
                     className="text-primary-GRAY100 underline text-4 1440:text-[1.19rem] mt-[3.75rem] cursor-pointer"
                 >
                     Stay logged out
