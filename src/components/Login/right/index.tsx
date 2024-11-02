@@ -3,6 +3,8 @@ import { useRedirect } from "../../../hooks/useRedirect";
 import { useLogin } from "../../../hooks/auth/useLogin";
 
 const LoginRight = () => {
+    const redirect = useRedirect();
+
     useLogin();
 
     return (
@@ -18,7 +20,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/google"
                             )
@@ -34,7 +36,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/kakao"
                             )
@@ -50,7 +52,7 @@ const LoginRight = () => {
                     <button
                         type="button"
                         onClick={() =>
-                            useRedirect(
+                            redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
                                     "oauth2/authorization/naver"
                             )
@@ -65,7 +67,7 @@ const LoginRight = () => {
                     </button>
                 </div>
                 <span
-                    onClick={() => useRedirect("/")}
+                    onClick={() => redirect("/")}
                     className="text-primary-GRAY100 underline text-4 1440:text-[1.19rem] mt-[3.75rem] cursor-pointer"
                 >
                     Stay logged out

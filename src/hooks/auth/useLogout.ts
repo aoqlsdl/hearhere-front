@@ -2,10 +2,14 @@ import { useRecoilState } from "recoil";
 import { userState } from "../../recoil/user/atom";
 import { useNavigate } from "react-router-dom";
 import { logout as apiLogout } from "../../api/services/authServices";
+import { isOnState } from "../../recoil/turntable/atom";
 
 const useLogout = () => {
     const [user, setUser] = useRecoilState(userState);
+    const [isOn, setIsOn] = useRecoilState(isOnState);
     const navigate = useNavigate();
+
+    console.log(isOn);
 
     const handleLogout = async () => {
         try {

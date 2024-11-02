@@ -8,6 +8,8 @@ interface Props {
 }
 
 const LoginModal = ({ title, setIsLoginOn }: Props) => {
+    const redirect = useRedirect();
+
     useScrollBlock();
     return (
         <div
@@ -26,14 +28,14 @@ const LoginModal = ({ title, setIsLoginOn }: Props) => {
                 <div className="flex flex-col w-[23.56rem] h-[8rem] 1440:h-[8.94rem] justify-between items-center mt-[3.75rem] mb-[3rem]">
                     <button
                         type="button"
-                        onClick={() => useRedirect("/login")}
+                        onClick={() => redirect("/login")}
                         className="w-full h-[3.5rem] 1440:h-[3.81rem] bg-white border-black border-[1.5px] hover:bg-black hover:border-none text-black hover:text-white font-light text-[1.15rem] 1440:text-[1.38rem] rounded-[15px] animate-fadein"
                     >
                         Log in
                     </button>
                     <button
                         type="button"
-                        onClick={() => useRedirect("/signup")}
+                        onClick={() => redirect("/signup")}
                         className="w-full h-[3.5rem] 1440:h-[3.81rem] bg-white border-black border-[1.5px] hover:bg-black hover:border-none text-black hover:text-white font-light text-[1.15rem] 1440:text-[1.38rem] rounded-[15px] animate-fadein"
                     >
                         Sign up

@@ -9,11 +9,8 @@ import { login } from "../../api/services/authServices";
 export const useLogin = (): void => {
     const [searchParams] = useSearchParams();
     const [user, setUser] = useRecoilState(userState);
-    const [isOn, setIsOn] = useRecoilState(isOnState);
+    const [, setIsOn] = useRecoilState(isOnState);
     const navigate = useNavigate();
-
-    // vercel 배포를 위해 추가
-    console.log(isOn);
 
     useEffect(() => {
         const access_token = searchParams.get("access_token");
@@ -39,7 +36,7 @@ export const useLogin = (): void => {
                 localStorage.setItem("refreshToken", loginResponse.refreshToken);
 
                 // 리다이렉트시 턴테이블 나오지 않도록 설정
-                setIsOn(true);
+                // setIsOn(true);
 
                 // 상태 설정 후 리다이렉트
                 navigate("/");
