@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div className="w-screen">
             <Turntable />
-            {isOn && <About />}
+            {isOn[0] && <About />}
         </div>
     );
 };
