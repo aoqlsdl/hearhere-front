@@ -11,10 +11,7 @@ const Navbar = () => {
     return (
         <nav className="flex justify-between top-0 w-screen h-[4.25rem] fixed z-50">
             <div className="flex justify-center items-center ml-9">
-                {user.username === null &&
-                (location.pathname === "/login" ||
-                    location.pathname === "/signup" ||
-                    location.pathname === "/") ? (
+                {user.accessToken === null ? (
                     <></>
                 ) : (
                     <div className="1440:text-[23px]">
@@ -23,7 +20,7 @@ const Navbar = () => {
                 )}
             </div>
             <div className="flex flex-row space-x-4 items-center mr-9">
-                {user.username === null ? (
+                {user.accessToken === null ? (
                     <NavLink to="/login" className="lg:font-extralight 1440:text-[23px]">
                         Login/Sign in
                     </NavLink>
