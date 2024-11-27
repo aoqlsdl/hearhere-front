@@ -1,11 +1,10 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/user/atom";
 import useLogout from "../../hooks/auth/useLogout";
 
 const Navbar = () => {
     const user = useRecoilValue(userState);
-    const location = useLocation();
     const logout = useLogout();
 
     return (
