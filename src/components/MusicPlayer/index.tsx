@@ -1,30 +1,77 @@
-import music from "../../_mock/sound.json";
+// import music from "../../_mock/sound.json";
 import SlidingText from "../SlidingText";
-import StreamingBar from "../StreamingBar";
+import StreamingBar from "../StreamingBar/index-copy";
 import { useRedirect } from "../../hooks/useRedirect";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import { useOpenModal } from "../../hooks/useModal";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
+import { asmrSave } from "../../api/services/asmrServices";
 
-const MusicPlayer = () => {
-    const musicInfo = music;
+interface SoundDetail {
+    soundId: number;
+    url: string;
+    length: string;
+}
+
+interface Props {
+    asmrData: {
+        asmrId: number;
+        title: string;
+        musicUrl: string;
+        soundDetails: SoundDetail[];
+    };
+    setIsLoginOn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
+    const redirect = useRedirect();
     const path = useLocation().pathname;
-    // todo: 이후에 로그인 기능이 추가되면 hook 사용
-    const [isLogin] = useState(false);
-    const [isLoginOn, setIsLoginOn] = useState(false);
-    console.log(isLoginOn);
 
-    const handleSave = () => {
-        if (!isLogin) {
+    const musicInfo = {
+        ...asmrData,
+        soundDetails: asmrData.soundDetails.map((detail) => detail.url), // string[] -> { url: string }[]
+    };
+
+    // 로그인 여부 확인
+    const user = useRecoilValue(userState);
+
+    const handleSave = async () => {
+        if (user.accessToken === null) {
+            setIsLoginOn(true);
             useOpenModal(setIsLoginOn);
-        } else {
-            if (path === "/result") {
-                // todo: 이후 post api 추가
-                useRedirect("/library");
-            } else if (path === "/customization") {
-                // todo: 이후 update api 추가
-                alert("Saved!");
+        } else if (path === "/result") {
+            try {
+                // POST 요청 수행
+                const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
+                console.log("musicplayer.tsx", soundUrls);
+                const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 값 설정
+                const soundPositions = soundUrls.map(() => [0]); // 기본 시작 위치 값 설정
+
+                const response = await asmrSave(
+                    asmrData.asmrId,
+                    asmrData.title,
+                    asmrData.musicUrl,
+                    1, // 기본 음악 볼륨
+                    soundUrls,
+                    soundVolumns,
+                    soundPositions
+                );
+
+                if ("asmrId" in response) {
+                    // 저장 성공
+                    alert("Successfully saved");
+                    redirect("/library");
+                } else {
+                    // 저장 실패
+                    alert(`Failed to save ASMR`);
+                }
+            } catch (error) {
+                console.error("Error during saving ASMR:", error);
             }
+        } else if (path === "/customization") {
+            // todo: 이후 update api 추가
+            alert("Successfully updated");
         }
     };
 
@@ -37,7 +84,7 @@ const MusicPlayer = () => {
                         <button
                             type="button"
                             className="bg-tune bg-cover w-[1.4rem] h-[1.4rem]"
-                            onClick={() => useRedirect(`/customization`)}
+                            onClick={() => redirect(`/customization`)}
                         />
                         <button
                             type="button"
@@ -50,23 +97,23 @@ const MusicPlayer = () => {
                         <button
                             type="button"
                             className="bg-tune bg-cover w-[1.4rem] h-[1.4rem] absolute top-5 right-6"
-                            onClick={() => useRedirect(`/customization/${musicInfo.id}`)}
+                            onClick={() => redirect(`/customization/${musicInfo.asmrId}`)}
                         />
                     </>
                 )}
                 <span className="text-2xl font-extralight text-primary-GRAY700">Here is</span>
-                <SlidingText title={musicInfo.asmrTitle} />
+                <SlidingText title={musicInfo.title} />
             </div>
             {/* middle */}
             <div className="rounded-full w-[16rem] h-[16rem] bg-primary-BLACK300 flex justify-center items-center mt-[0.8rem]">
                 <div className="font-Luxurious w-[7rem] h-[7rem] rounded-full bg-white flex justify-center items-center text-center max-w-[7rem] whitespace-pre-line">
                     <span className="text-[clamp(0.5rem, 1.69rem, 2.5rem)] ">
-                        {musicInfo.asmrTitle}
+                        {musicInfo.title}
                     </span>
                 </div>
             </div>
             {/* bottom */}
-            <StreamingBar music={musicInfo} />
+            <StreamingBar asmrData={asmrData} />
         </div>
     );
 };
