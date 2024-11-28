@@ -21,6 +21,8 @@ export const useLogin = (): void => {
             if (access_token && refresh_token && username) {
                 // 로그인 API 호출
                 const loginResponse = await login(access_token, refresh_token, username);
+                console.log(`${import.meta.env.VITE_REACT_APP_BASE_URL} +
+                                    "oauth2/authorization/google"`);
 
                 // 상태 업데이트
                 setUser({
@@ -39,7 +41,14 @@ export const useLogin = (): void => {
                 // setIsOn(true);
 
                 // 상태 설정 후 리다이렉트
-                navigate("/");
+                if (sessionStorage.getItem("savedData") === null) {
+                    navigate("/");
+                }
+                // else {
+                //     const asmrData = JSON.parse(sessionStorage.getItem("savedData"));
+                //     // 저장된 asmr 데이터를
+                //     navigate(`/player/${asmrData.asmrId}`);
+                // }
             }
         };
 
