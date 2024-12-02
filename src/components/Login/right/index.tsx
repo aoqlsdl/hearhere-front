@@ -4,8 +4,6 @@ import { useLogin } from "../../../hooks/auth/useLogin";
 
 const LoginRight = () => {
     const redirect = useRedirect();
-    console.log(`${import.meta.env.VITE_REACT_APP_BASE_URL} +
-                                    "oauth2/authorization/google`);
 
     useLogin();
 
