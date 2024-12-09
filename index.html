@@ -8,10 +8,11 @@
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com www.google-analytics.com;
-    connect-src 'self' www.google-analytics.com;
-    img-src 'self' www.google-analytics.com data:;
+    connect-src 'self' www.google-analytics.com https://hearhere-back.site;
+    img-src 'self' www.google-analytics.com https://hearhere-back.site data:;
     style-src 'self' 'unsafe-inline';
     font-src 'self' data:;
+    media-src https://hearhere-bucket.s3.ap-northeast-2.amazonaws.com/;
   " />
   <title>Hear Here</title>
 </head>
