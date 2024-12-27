@@ -48,7 +48,7 @@ export interface SaveErrorResponse {
 // ASMR 생성 API 요청
 export const fetchAsmrGenerate = async (
     userPrompt: string,
-    isMusicIncluded: boolean = true // 기본값 true
+    isMusicIncluded: boolean = false // 기본값 false
 ): Promise<AsmrGenerateResponse | GenerateErrorResponse> => {
     try {
         const response = await http.post<AsmrGenerateResponse>(

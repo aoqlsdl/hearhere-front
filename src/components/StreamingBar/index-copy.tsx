@@ -16,12 +16,6 @@ interface Props {
     };
 }
 
-// const override: CSSProperties = {
-//     display: "block",
-//     margin: "4rem auto",
-//     borderColor: "#E24848",
-// };
-
 const StreamingBar = ({ asmrData }: Props) => {
     // 오디오 관련
     const audioContext = useRef<AudioContext | null>(null);
@@ -60,20 +54,32 @@ const StreamingBar = ({ asmrData }: Props) => {
         const loadSoundFiles = async () => {
             setIsLoading(true);
             try {
-                const musicBuffer = await fetchAudioBuffer(asmrData.musicUrl);
+                // const musicBuffer = await fetchAudioBuffer(asmrData.musicUrl);
                 const soundBuffers = await Promise.all(
                     asmrData.soundDetails.map((soundDetail) => fetchAudioBuffer(soundDetail.url))
                 );
 
-                if (musicBuffer && soundBuffers.every((buffer) => buffer !== null)) {
-                    audioBuffers.current = [musicBuffer, ...soundBuffers];
+                if (soundBuffers.every((buffer) => buffer !== null)) {
+                    audioBuffers.current = [...soundBuffers];
 
                     gainNodes.current = audioBuffers.current.map(() =>
                         audioContext.current!.createGain()
                     );
 
-                    // bg-music의 길이를 duration으로 설정
-                    setDuration(formatTime(musicBuffer.duration));
+                    function findLongestDuration(
+                        ref: React.MutableRefObject<AudioBuffer[]>
+                    ): number {
+                        return ref.current.reduce(
+                            (max, current) => Math.max(max, current.duration),
+                            0
+                        );
+                    }
+
+                    // soundBuffer 요소 중 재생 시간이 가장 긴 요소를 기준으로 전체 음악의 길이 설정
+                    const longestDuration = findLongestDuration(audioBuffers);
+                    setDuration(formatTime(longestDuration));
+                    // console.log(longestDuration);
+                    // setDuration(formatTime(musicBuffer.duration));
                 } else {
                     console.error("Failed to load one or more buffers");
                 }
@@ -179,9 +185,7 @@ const StreamingBar = ({ asmrData }: Props) => {
         <>
             {isLoading ? (
                 <ScaleLoader
-                    // color={color}
                     loading={isLoading}
-                    // size={150}
                     aria-label="Loading Spinner"
                     data-testid="loader"
                 />
