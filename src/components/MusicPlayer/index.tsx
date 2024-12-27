@@ -38,11 +38,15 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
 
     const handleSave = async () => {
         if (user.accessToken === null) {
+            // asmrData를 세션스토리지에 임시 저장
+            sessionStorage.setItem("savedData", JSON.stringify(asmrData));
+            // 로그인 모달 오픈
             setIsLoginOn(true);
             useOpenModal(setIsLoginOn);
         } else if (path === "/result") {
             try {
                 // POST 요청 수행
+                // @todo: result 페이지로 돌아올 때마다 계속 post되는 에러 해결하기
                 const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
                 console.log("musicplayer.tsx", soundUrls);
                 const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 값 설정
@@ -106,7 +110,7 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
             </div>
             {/* middle */}
             <div className="rounded-full w-[16rem] h-[16rem] bg-primary-BLACK300 flex justify-center items-center mt-[0.8rem]">
-                <div className="font-Luxurious w-[7rem] h-[7rem] rounded-full bg-white flex justify-center items-center text-center max-w-[7rem] whitespace-pre-line">
+                <div className="font-Luxurious w-[7rem] h-[7rem] rounded-full bg-white flex justify-center items-center text-center max-w-[7rem] whitespace-pre-line cursor-default">
                     <span className="text-[clamp(0.5rem, 1.69rem, 2.5rem)] ">
                         {musicInfo.title}
                     </span>
