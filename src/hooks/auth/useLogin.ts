@@ -21,8 +21,6 @@ export const useLogin = (): void => {
             if (access_token && refresh_token && username) {
                 // 로그인 API 호출
                 const loginResponse = await login(access_token, refresh_token, username);
-                console.log(`${import.meta.env.VITE_REACT_APP_BASE_URL} +
-                                    "oauth2/authorization/google"`);
 
                 // 상태 업데이트
                 setUser({
