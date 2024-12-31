@@ -173,42 +173,42 @@ const StreamingBar = ({ asmrData }: Props) => {
         };
     };
 
-    const startPlaybackWithRandomIntervals = async () => {
-        if (!audioContext.current) return;
+    // const startPlaybackWithRandomIntervals = async () => {
+    //     if (!audioContext.current) return;
 
-        // 가장 긴 재생시간을 가진 트랙 찾기
-        const longestBuffer = audioBuffers.current.reduce((longest, buffer) =>
-            buffer.duration > longest.duration ? buffer : longest
-        );
+    //     // 가장 긴 재생시간을 가진 트랙 찾기
+    //     const longestBuffer = audioBuffers.current.reduce((longest, buffer) =>
+    //         buffer.duration > longest.duration ? buffer : longest
+    //     );
 
-        const longestDuration = longestBuffer.duration;
+    //     const longestDuration = longestBuffer.duration;
 
-        // 나머지 트랙에 대해 무작위 재생 시간 설정
-        audioBuffers.current.forEach((buffer, index) => {
-            if (buffer === longestBuffer) {
-                // 가장 긴 트랙은 바로 재생
-                playAtTime(buffer, index, 0);
-            } else {
-                // 무작위 재생 시간 생성
-                const randomIntervals = generateRandomIntervals(
-                    buffer.duration,
-                    longestDuration,
-                    4 // 트랙당 최대 재생 횟수
-                );
+    //     // 나머지 트랙에 대해 무작위 재생 시간 설정
+    //     audioBuffers.current.forEach((buffer, index) => {
+    //         if (buffer === longestBuffer) {
+    //             // 가장 긴 트랙은 바로 재생
+    //             playAtTime(buffer, index, 0);
+    //         } else {
+    //             // 무작위 재생 시간 생성
+    //             const randomIntervals = generateRandomIntervals(
+    //                 buffer.duration,
+    //                 longestDuration,
+    //                 4 // 트랙당 최대 재생 횟수
+    //             );
 
-                randomIntervals.forEach((startTime) => {
-                    setTimeout(() => {
-                        const maxEndTime = Math.min(startTime + buffer.duration, longestDuration);
-                        const playableDuration = maxEndTime - startTime;
+    //             randomIntervals.forEach((startTime) => {
+    //                 setTimeout(() => {
+    //                     const maxEndTime = Math.min(startTime + buffer.duration, longestDuration);
+    //                     const playableDuration = maxEndTime - startTime;
 
-                        playAtTimeWithLimit(buffer, index, 0, playableDuration);
-                    }, startTime * 1000);
-                });
-            }
-        });
+    //                     playAtTimeWithLimit(buffer, index, 0, playableDuration);
+    //                 }, startTime * 1000);
+    //             });
+    //         }
+    //     });
 
-        setIsPlaying(true);
-    };
+    //     setIsPlaying(true);
+    // };
 
     const stopAllSounds = () => {
         audioSources.current.forEach((source) => source.stop());
