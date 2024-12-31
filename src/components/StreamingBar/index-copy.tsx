@@ -78,7 +78,6 @@ const StreamingBar = ({ asmrData }: Props) => {
                     // soundBuffer 요소 중 재생 시간이 가장 긴 요소를 기준으로 전체 음악의 길이 설정
                     const longestDuration = findLongestDuration(audioBuffers);
                     setDuration(formatTime(longestDuration));
-                    // console.log(longestDuration);
                     // setDuration(formatTime(musicBuffer.duration));
                 } else {
                     console.error("Failed to load one or more buffers");
@@ -120,6 +119,24 @@ const StreamingBar = ({ asmrData }: Props) => {
         };
     };
 
+    // 무작위로 재생 구간 생성
+    const generateRandomIntervals = (
+        trackDuration: number,
+        totalDuration: number,
+        maxOccurrences: number
+    ): number[] => {
+        const intervals: number[] = [];
+        while (intervals.length < maxOccurrences) {
+            const randomTime = Math.random() * totalDuration;
+
+            // 겹치지 않도록 보장
+            if (!intervals.some((interval) => Math.abs(interval - randomTime) < trackDuration)) {
+                intervals.push(randomTime);
+            }
+        }
+        return intervals.sort((a, b) => a - b); // 정렬된 시간 반환
+    };
+
     const startPlayback = async (startOffset: number = 0) => {
         if (audioContext.current?.state === "suspended") {
             await audioContext.current.resume();
@@ -128,6 +145,69 @@ const StreamingBar = ({ asmrData }: Props) => {
         audioBuffers.current.forEach((buffer, index) => {
             playAtTime(buffer, index, startOffset);
         });
+    };
+
+    // 제한된 시간만큼 재생
+    const playAtTimeWithLimit = (
+        buffer: AudioBuffer,
+        index: number,
+        startOffset: number,
+        durationLimit: number
+    ) => {
+        if (!audioContext.current || !buffer) return;
+
+        const source = audioContext.current.createBufferSource();
+        const gainNode = gainNodes.current[index];
+
+        source.buffer = buffer;
+        source.connect(gainNode);
+        gainNode.connect(audioContext.current.destination);
+
+        source.start(0, startOffset, durationLimit); // 재생 제한 시간 설정
+        audioSources.current.push(source);
+
+        source.onended = () => {
+            if (index === 0) {
+                setIsPlaying(false);
+            }
+        };
+    };
+
+    const startPlaybackWithRandomIntervals = async () => {
+        if (!audioContext.current) return;
+
+        // 가장 긴 재생시간을 가진 트랙 찾기
+        const longestBuffer = audioBuffers.current.reduce((longest, buffer) =>
+            buffer.duration > longest.duration ? buffer : longest
+        );
+
+        const longestDuration = longestBuffer.duration;
+
+        // 나머지 트랙에 대해 무작위 재생 시간 설정
+        audioBuffers.current.forEach((buffer, index) => {
+            if (buffer === longestBuffer) {
+                // 가장 긴 트랙은 바로 재생
+                playAtTime(buffer, index, 0);
+            } else {
+                // 무작위 재생 시간 생성
+                const randomIntervals = generateRandomIntervals(
+                    buffer.duration,
+                    longestDuration,
+                    4 // 트랙당 최대 재생 횟수
+                );
+
+                randomIntervals.forEach((startTime) => {
+                    setTimeout(() => {
+                        const maxEndTime = Math.min(startTime + buffer.duration, longestDuration);
+                        const playableDuration = maxEndTime - startTime;
+
+                        playAtTimeWithLimit(buffer, index, 0, playableDuration);
+                    }, startTime * 1000);
+                });
+            }
+        });
+
+        setIsPlaying(true);
     };
 
     const stopAllSounds = () => {
@@ -143,10 +223,13 @@ const StreamingBar = ({ asmrData }: Props) => {
             setIsPaused(true);
         } else {
             if (isPaused) {
+                // 일시정지된 상태에서 다시 재생되기 시작할 때
                 startPlayback(pauseTime);
                 setIsPaused(false);
             } else {
+                // 처음 재생될 때
                 setStartTime(audioContext.current!.currentTime);
+                // startPlaybackWithRandomIntervals();
                 startPlayback(0);
             }
             setIsPlaying(true);
@@ -184,11 +267,13 @@ const StreamingBar = ({ asmrData }: Props) => {
     return (
         <>
             {isLoading ? (
-                <ScaleLoader
-                    loading={isLoading}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
+                <div className="mt-16">
+                    <ScaleLoader
+                        loading={isLoading}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                </div>
             ) : (
                 <div>
                     <div className="flex flex-row w-full justify-center items-center mt-[2.48rem]">
