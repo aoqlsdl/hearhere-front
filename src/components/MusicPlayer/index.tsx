@@ -2,7 +2,7 @@
 import SlidingText from "../SlidingText";
 import StreamingBar from "../StreamingBar/index-copy";
 import { useRedirect } from "../../hooks/useRedirect";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import { useState } from "react";
 import { useOpenModal } from "../../hooks/useModal";
 import { useRecoilValue } from "recoil";
@@ -28,6 +28,12 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
     const redirect = useRedirect();
     const path = useLocation().pathname;
 
+    // 페이지 전환시 asmrData 전달
+    const navigate = useNavigate();
+    const handleCustomize = () => {
+        navigate(`/customization/${asmrData.asmrId}`, { state: { asmrData } });
+    };
+
     const musicInfo = {
         ...asmrData,
         soundDetails: asmrData.soundDetails.map((detail) => detail.url), // string[] -> { url: string }[]
@@ -48,7 +54,7 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
                 // POST 요청 수행
                 // @todo: result 페이지로 돌아올 때마다 계속 post되는 에러 해결하기
                 const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
-                console.log("musicplayer.tsx", soundUrls);
+                // console.log("musicplayer.tsx", soundUrls);
                 const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 값 설정
                 const soundPositions = soundUrls.map(() => [0]); // 기본 시작 위치 값 설정
 
@@ -88,7 +94,7 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
                         <button
                             type="button"
                             className="bg-tune bg-cover w-[1.4rem] h-[1.4rem]"
-                            onClick={() => redirect(`/customization`)}
+                            onClick={handleCustomize}
                         />
                         <button
                             type="button"
@@ -101,7 +107,7 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
                         <button
                             type="button"
                             className="bg-tune bg-cover w-[1.4rem] h-[1.4rem] absolute top-5 right-6"
-                            onClick={() => redirect(`/customization/${musicInfo.asmrId}`)}
+                            onClick={handleCustomize}
                         />
                     </>
                 )}
