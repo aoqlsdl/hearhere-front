@@ -1,15 +1,21 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Custom from "../../components/Custom";
 import HelpModal from "../../components/HelpModal";
 import LoginModal from "../../components/LoginModal";
 import { useOpenModal } from "../../hooks/useModal";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const Customize = () => {
     const [isHelpOn, setIsHelpOn] = useState(false);
     const [isLoginOn, setIsLoginOn] = useState(false);
-    // todo: 이후에 로그인 기능이 추가되면 hook 사용
-    const [isLogin] = useState(false);
+    const [isLogin] = useRecoilState(userState);
     const [isMessageAppear, setIsMessageAppear] = useState(false);
+
+    // const { asmrId } = useParams(); // URL 파라미터 가져오기
+    const location = useLocation();
+    const { asmrData } = location.state || {}; // state에서 데이터 가져오기
 
     const handleSave = () => {
         if (!isLogin) {
@@ -49,7 +55,7 @@ const Customize = () => {
                     Save
                 </button>
             </div>
-            <Custom />
+            <Custom asmrData={asmrData} />
             {isHelpOn && <HelpModal setIsHelpOn={setIsHelpOn} />}
             {isLoginOn && (
                 <LoginModal title="Want to customize your ASMR?" setIsLoginOn={setIsLoginOn} />
