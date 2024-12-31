@@ -120,22 +120,22 @@ const StreamingBar = ({ asmrData }: Props) => {
     };
 
     // 무작위로 재생 구간 생성
-    const generateRandomIntervals = (
-        trackDuration: number,
-        totalDuration: number,
-        maxOccurrences: number
-    ): number[] => {
-        const intervals: number[] = [];
-        while (intervals.length < maxOccurrences) {
-            const randomTime = Math.random() * totalDuration;
+    // const generateRandomIntervals = (
+    //     trackDuration: number,
+    //     totalDuration: number,
+    //     maxOccurrences: number
+    // ): number[] => {
+    //     const intervals: number[] = [];
+    //     while (intervals.length < maxOccurrences) {
+    //         const randomTime = Math.random() * totalDuration;
 
-            // 겹치지 않도록 보장
-            if (!intervals.some((interval) => Math.abs(interval - randomTime) < trackDuration)) {
-                intervals.push(randomTime);
-            }
-        }
-        return intervals.sort((a, b) => a - b); // 정렬된 시간 반환
-    };
+    //         // 겹치지 않도록 보장
+    //         if (!intervals.some((interval) => Math.abs(interval - randomTime) < trackDuration)) {
+    //             intervals.push(randomTime);
+    //         }
+    //     }
+    //     return intervals.sort((a, b) => a - b); // 정렬된 시간 반환
+    // };
 
     const startPlayback = async (startOffset: number = 0) => {
         if (audioContext.current?.state === "suspended") {
@@ -148,30 +148,30 @@ const StreamingBar = ({ asmrData }: Props) => {
     };
 
     // 제한된 시간만큼 재생
-    const playAtTimeWithLimit = (
-        buffer: AudioBuffer,
-        index: number,
-        startOffset: number,
-        durationLimit: number
-    ) => {
-        if (!audioContext.current || !buffer) return;
+    // const playAtTimeWithLimit = (
+    //     buffer: AudioBuffer,
+    //     index: number,
+    //     startOffset: number,
+    //     durationLimit: number
+    // ) => {
+    //     if (!audioContext.current || !buffer) return;
 
-        const source = audioContext.current.createBufferSource();
-        const gainNode = gainNodes.current[index];
+    //     const source = audioContext.current.createBufferSource();
+    //     const gainNode = gainNodes.current[index];
 
-        source.buffer = buffer;
-        source.connect(gainNode);
-        gainNode.connect(audioContext.current.destination);
+    //     source.buffer = buffer;
+    //     source.connect(gainNode);
+    //     gainNode.connect(audioContext.current.destination);
 
-        source.start(0, startOffset, durationLimit); // 재생 제한 시간 설정
-        audioSources.current.push(source);
+    //     source.start(0, startOffset, durationLimit); // 재생 제한 시간 설정
+    //     audioSources.current.push(source);
 
-        source.onended = () => {
-            if (index === 0) {
-                setIsPlaying(false);
-            }
-        };
-    };
+    //     source.onended = () => {
+    //         if (index === 0) {
+    //             setIsPlaying(false);
+    //         }
+    //     };
+    // };
 
     // const startPlaybackWithRandomIntervals = async () => {
     //     if (!audioContext.current) return;
