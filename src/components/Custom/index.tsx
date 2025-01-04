@@ -181,7 +181,7 @@ const Custom = ({ asmrData }: CustomProps) => {
                             className="child bg-slate-50 border-b-2 h-[7.44rem] flex flex-col justify-center pl-[1.88rem]"
                             style={{ width: maxWidth > 0 ? `${maxWidth}px` : "auto" }}
                         >
-                            <span className="mb-2 font-Inter font-medium text-[1rem]">
+                            <span className="mb-2 font-Inter font-medium text-[1rem] text-[#5E3636]">
                                 Track {detail.soundId}
                             </span>
                             <Waveform
