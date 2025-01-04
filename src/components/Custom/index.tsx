@@ -107,6 +107,13 @@ const Custom = ({ asmrData }: CustomProps) => {
         return minutes * 60 + seconds;
     };
 
+    const formatTime = (timeInSeconds: number): string => {
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = Math.floor(timeInSeconds % 60);
+
+        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    };
+
     return (
         <div className="flex flex-col">
             {/* play/pause 버튼 */}
@@ -137,10 +144,34 @@ const Custom = ({ asmrData }: CustomProps) => {
             <div className="w-screen flex flex-col overflow-scroll">
                 {/* 재생 시간 표시 */}
                 <div
-                    className="relative h-[3.63rem] mt-[1.56rem] bg-white cursor-pointer border-t border-b border-[#CECACA]"
+                    className="relative h-[3.63rem] mt-[1.56rem] mx-[1.88rem] bg-white cursor-pointer border-t border-b border-[#CECACA]"
                     style={{ width: maxWidth > 0 ? `${maxWidth}px` : "auto" }}
                     onClick={handleProgressClick}
                 >
+                    {/* 눈금 표시 */}
+                    {[...Array(Math.ceil(duration / 10))].map((_, index) => {
+                        const time = index * 10; // 10초 간격
+                        const leftPercentage = (time / duration) * 100; // 위치 비율 계산
+                        return (
+                            <div
+                                key={index}
+                                className="absolute bottom-0 h-fit z-50"
+                                style={{
+                                    left: `${leftPercentage}%`,
+                                    transform: "translateX(-50%)",
+                                }}
+                            >
+                                {/* 시간 */}
+                                <span className="text-sm text-gray-500 block text-right mt-1 ml-12">
+                                    {formatTime(time)}
+                                </span>
+                                {/* 눈금 */}
+                                <div className="w-[1px] h-[17px] bg-gray-500 m-auto"></div>
+                            </div>
+                        );
+                    })}
+
+                    {/* 진행 바 */}
                     <div
                         className="absolute top-0 left-0 h-full bg-[#E8DFDF]"
                         style={{ width: `${(currentTime / duration) * 100}%` }}
