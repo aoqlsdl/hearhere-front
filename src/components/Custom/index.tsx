@@ -59,13 +59,6 @@ const Custom = ({ asmrData }: CustomProps) => {
         calculateLongestDuration();
     }, [asmrData]);
 
-    // 시간 포맷팅 함수 (초 -> MM:SS)
-    // const formatTime = (time: number): string => {
-    //     const minutes = Math.floor(time / 60);
-    //     const seconds = Math.floor(time % 60);
-    //     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    // };
-
     // 모든 트랙의 재생 위치 동기화
     const syncTracks = (currentTime: number) => {
         waveSurferInstances.current.forEach((waveSurfer) => {
@@ -143,39 +136,41 @@ const Custom = ({ asmrData }: CustomProps) => {
 
             <div className="w-screen flex flex-col overflow-scroll">
                 {/* 재생 시간 표시 */}
-                <div
-                    className="relative h-[3.63rem] mt-[1.56rem] mx-[1.88rem] bg-white cursor-pointer border-t border-b border-[#CECACA]"
-                    style={{ width: maxWidth > 0 ? `${maxWidth}px` : "auto" }}
-                    onClick={handleProgressClick}
-                >
-                    {/* 눈금 표시 */}
-                    {[...Array(Math.ceil(duration / 10))].map((_, index) => {
-                        const time = index * 10; // 10초 간격
-                        const leftPercentage = (time / duration) * 100; // 위치 비율 계산
-                        return (
-                            <div
-                                key={index}
-                                className="absolute bottom-0 h-fit z-50"
-                                style={{
-                                    left: `${leftPercentage}%`,
-                                    transform: "translateX(-50%)",
-                                }}
-                            >
-                                {/* 시간 */}
-                                <span className="text-sm text-gray-500 block text-right mt-1 ml-12">
-                                    {formatTime(time)}
-                                </span>
-                                {/* 눈금 */}
-                                <div className="w-[1px] h-[17px] bg-gray-500 m-auto"></div>
-                            </div>
-                        );
-                    })}
-
-                    {/* 진행 바 */}
+                <div className="w-fit bg-[#E8DFDF] mt-[1.56rem] border-t border-b border-[#CECACA]">
                     <div
-                        className="absolute top-0 left-0 h-full bg-[#E8DFDF]"
-                        style={{ width: `${(currentTime / duration) * 100}%` }}
-                    />
+                        className="relative h-[3.63rem] ml-[1.88rem] bg-white cursor-pointer"
+                        style={{ width: maxWidth > 0 ? `${maxWidth - 30}px` : "auto" }}
+                        onClick={handleProgressClick}
+                    >
+                        {/* 눈금 표시 */}
+                        {[...Array(Math.ceil(duration / 10))].map((_, index) => {
+                            const time = index * 10; // 10초 간격
+                            const leftPercentage = (time / duration) * 100; // 위치 비율 계산
+                            return (
+                                <div
+                                    key={index}
+                                    className="absolute bottom-0 h-fit z-50"
+                                    style={{
+                                        left: `${leftPercentage}%`,
+                                        transform: "translateX(-50%)",
+                                    }}
+                                >
+                                    {/* 시간 */}
+                                    <span className="text-sm text-gray-500 block text-right mt-1 ml-12">
+                                        {formatTime(time)}
+                                    </span>
+                                    {/* 눈금 */}
+                                    <div className="w-[1px] h-[17px] bg-gray-500 m-auto"></div>
+                                </div>
+                            );
+                        })}
+
+                        {/* 진행 바 */}
+                        <div
+                            className="absolute top-0 left-0 h-full bg-[#E8DFDF]"
+                            style={{ width: `${(currentTime / duration) * 100}%` }}
+                        />
+                    </div>
                 </div>
 
                 <div ref={containerRef}>
@@ -186,7 +181,9 @@ const Custom = ({ asmrData }: CustomProps) => {
                             className="child bg-slate-50 border-b-2 h-[7.44rem] flex flex-col justify-center pl-[1.88rem]"
                             style={{ width: maxWidth > 0 ? `${maxWidth}px` : "auto" }}
                         >
-                            <h3 className="mb-2">Track {detail.soundId}</h3>
+                            <span className="mb-2 font-Inter font-medium text-[1rem]">
+                                Track {detail.soundId}
+                            </span>
                             <Waveform
                                 audioUrl={detail.url}
                                 isPlaying={isPlaying}
