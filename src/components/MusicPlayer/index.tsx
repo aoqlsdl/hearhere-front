@@ -31,7 +31,7 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
     // 페이지 전환시 asmrData 전달
     const navigate = useNavigate();
     const handleCustomize = () => {
-        navigate(`/customization/${asmrData.asmrId}`, { state: { asmrData } });
+        navigate(`/customization`, { state: { asmrData } });
     };
 
     const musicInfo = {
