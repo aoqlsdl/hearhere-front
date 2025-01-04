@@ -5,7 +5,7 @@ import WaveSurfer from "wavesurfer.js";
 interface SoundDetail {
     soundId: number;
     url: string;
-    length: string; // e.g., "3:58"
+    length: string;
 }
 
 interface Props {
@@ -19,7 +19,6 @@ interface Props {
 
 const StreamingBar = ({ asmrData }: Props) => {
     const waveSurferRefs = useRef<WaveSurfer[]>([]);
-    // const containerRefs = useRef<HTMLDivElement[]>([]); // 각 URL에 대한 container ref
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [totalDuration, setTotalDuration] = useState(0);
@@ -29,7 +28,7 @@ const StreamingBar = ({ asmrData }: Props) => {
     useEffect(() => {
         const waveSurfers: WaveSurfer[] = asmrData.soundDetails.map((soundDetail) => {
             const waveSurfer = WaveSurfer.create({
-                container: document.createElement("div"), // 임시 컨테이너
+                container: document.createElement("div"),
                 waveColor: "#E24848",
                 progressColor: "#E24848",
                 cursorColor: "rgba(0,0,0,0)",
