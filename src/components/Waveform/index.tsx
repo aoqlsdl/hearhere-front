@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-// import { BeatLoader } from "react-spinners";
 
 interface WaveformProps {
     audioUrl: string;
@@ -14,13 +13,14 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
     const waveformRef = useRef<HTMLDivElement>(null);
     const waveSurferInstance = useRef<WaveSurfer | null>(null);
 
-    // const [isLoading, setIsLoading] = useState(true);
+    const [isSelected, setIsSelected] = useState(false); // 선택 상태
+    const [volume, setVolume] = useState(1); // 볼륨 상태 (0~1)
 
     useEffect(() => {
         if (!waveformRef.current) return;
 
         // 각 초당 픽셀 비율 설정
-        const pixelsPerSecond = 50; // 50px per second
+        const pixelsPerSecond = 15;
         const calculatedWidth = length * pixelsPerSecond;
 
         waveSurferInstance.current = WaveSurfer.create({
@@ -40,11 +40,10 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
 
         // 오디오 로드
         waveSurferInstance.current.load(audioUrl);
-        // setIsLoading(true);
-        // console.log(isLoading);
 
         waveSurferInstance.current.on("audioprocess", onProgressUpdate);
         waveSurferInstance.current.on("ready", () => {
+            waveSurferInstance.current?.setVolume(volume);
             onReady(waveSurferInstance.current!);
         });
 
@@ -52,7 +51,17 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
             waveSurferInstance.current?.destroy();
             waveSurferInstance.current = null;
         };
-    }, [audioUrl, length]);
+    }, [audioUrl, length, volume]);
+
+    // 볼륨 변경
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseFloat(e.target.value);
+        setVolume(newVolume);
+
+        if (waveSurferInstance.current) {
+            waveSurferInstance.current.setVolume(newVolume);
+        }
+    };
 
     // 재생/정지 상태를 동기화
     useEffect(() => {
@@ -67,20 +76,29 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
 
     return (
         <>
-            {/* {isLoading ? (
-                <div className="w-full flex justify-center">
-                    <BeatLoader
-                        loading={isLoading}
-                        area-label="Loading Spinner"
-                        data-testid="loader"
-                        color="#E24848"
-                    />
-                </div>
-            ) : ( */}
-            <div className="bg-white drop-shadow-sm rounded-md" style={{ width: length * 50 }}>
+            <div
+                className={`relative h-[3.75rem] bg-white drop-shadow-sm rounded-md cursor-pointer ${
+                    isSelected ? "border-[3px] border-[#4AA2FF]" : "border border-gray-300"
+                }`}
+                style={{ width: length * 15 }}
+                onClick={() => setIsSelected((prev) => !prev)}
+            >
                 <div ref={waveformRef} />
+                {/* 볼륨 조절 슬라이더 */}
+                {isSelected && (
+                    <div className="absolute left-[-2.5rem] top-1/2 transform -translate-y-1/2 flex flex-col items-center">
+                        <input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value={volume}
+                            onChange={handleVolumeChange}
+                            className="w-12 h-14 rotate-[-90deg] cursor-pointer"
+                        />
+                    </div>
+                )}
             </div>
-            {/* )} */}
         </>
     );
 };
