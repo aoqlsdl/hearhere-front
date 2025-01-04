@@ -1,6 +1,5 @@
-// import music from "../../_mock/sound.json";
 import SlidingText from "../SlidingText";
-import StreamingBar from "../StreamingBar/index-copy";
+import StreamingBar from "../StreamingBar/index";
 import { useRedirect } from "../../hooks/useRedirect";
 import { useLocation, useNavigate } from "react-router-dom";
 // import { useState } from "react";
