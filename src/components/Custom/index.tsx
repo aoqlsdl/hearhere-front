@@ -104,7 +104,7 @@ const Custom = ({ asmrData }: CustomProps) => {
         const minutes = Math.floor(timeInSeconds / 60);
         const seconds = Math.floor(timeInSeconds % 60);
 
-        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     };
 
     return (
@@ -156,7 +156,7 @@ const Custom = ({ asmrData }: CustomProps) => {
                                     }}
                                 >
                                     {/* 시간 */}
-                                    <span className="text-sm text-gray-500 block text-right mt-1 ml-12">
+                                    <span className="text-sm text-gray-500 block text-right mt-1 ml-10 font-Inter">
                                         {formatTime(time)}
                                     </span>
                                     {/* 눈금 */}
