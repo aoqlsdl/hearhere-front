@@ -60,11 +60,11 @@ const Custom = ({ asmrData }: CustomProps) => {
     }, [asmrData]);
 
     // 시간 포맷팅 함수 (초 -> MM:SS)
-    const formatTime = (time: number): string => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    };
+    // const formatTime = (time: number): string => {
+    //     const minutes = Math.floor(time / 60);
+    //     const seconds = Math.floor(time % 60);
+    //     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    // };
 
     // 모든 트랙의 재생 위치 동기화
     const syncTracks = (currentTime: number) => {

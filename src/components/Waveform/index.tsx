@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
 // import { BeatLoader } from "react-spinners";
 
@@ -77,7 +77,7 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
                     />
                 </div>
             ) : ( */}
-            <div className="bg-white drop-shadow-sm rounded-md">
+            <div className="bg-white drop-shadow-sm rounded-md" style={{ width: length * 50 }}>
                 <div ref={waveformRef} />
             </div>
             {/* )} */}
