@@ -11,7 +11,7 @@ const HelpModal = ({ setIsHelpOn }: Props) => {
     return (
         <div
             onClick={(e) => useBackgroundClick(e, setIsHelpOn)}
-            className="w-screen h-screen bg-[rgba(0,0,0,0.75)] flex justify-center items-center fixed top-0 left-0 backdrop-blur-[2px]"
+            className="w-screen h-screen bg-[rgba(0,0,0,0.75)] flex justify-center items-center fixed top-0 left-0 backdrop-blur-[2px] z-[100]"
         >
             <div className="w-[40.31rem] h-[38rem] rounded-[3.06rem] text-center bg-white flex flex-col justify-center items-center relative animate-fadein">
                 <button
