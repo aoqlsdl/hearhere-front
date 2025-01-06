@@ -39,6 +39,10 @@ export interface AsmrSaveResponse {
     asmrId: number;
 }
 
+export interface AsmrCustomResponse {
+    isSuccess: boolean;
+}
+
 export interface SaveErrorResponse {
     code?: number;
     message: string;
@@ -48,7 +52,7 @@ export interface SaveErrorResponse {
 // ASMR 생성 API 요청
 export const fetchAsmrGenerate = async (
     userPrompt: string,
-    isMusicIncluded: boolean = false // 기본값 false
+    isMusicIncluded: boolean = true // 기본값 false
 ): Promise<AsmrGenerateResponse | GenerateErrorResponse> => {
     try {
         const response = await http.post<AsmrGenerateResponse>(
@@ -103,10 +107,10 @@ export const asmrSave = async (
             asmrId,
             title,
             musicUrl,
-            musicVolumn: Math.floor(musicVolumn), // Ensure Integer
+            musicVolumn: Math.floor(musicVolumn),
             soundUrls,
-            soundVolumns: soundVolumns.map(Math.floor), // Ensure Integer
-            soundPositions: soundPositions.map((arr) => arr.map(Math.floor)), // Ensure Nested Integer Array
+            soundVolumns: soundVolumns.map(Math.floor),
+            soundPositions: soundPositions.map((arr) => arr.map(Math.floor)),
         };
 
         // PATCH 요청
@@ -123,6 +127,113 @@ export const asmrSave = async (
         // 서버 또는 네트워크 오류 처리
         if (message.response) {
             // 서버 응답에 따른 에러 처리
+            return {
+                code: message.response.data.code || "",
+                message: message.response.data.message || "서버 오류가 발생했습니다.",
+                isSuccess: message.response.data.isSuccess,
+            };
+        }
+
+        // 네트워크 오류 처리
+        return {
+            message: "서버와의 통신 중 오류가 발생했습니다.",
+            isSuccess: false,
+        };
+    }
+};
+
+export const asmrCustom = async (
+    asmrId: number,
+    title: string,
+    musicUrl: string,
+    musicVolumn: number,
+    soundUrls: string[],
+    soundVolumns: number[],
+    soundPositions: number[][]
+): Promise<boolean | SaveErrorResponse> => {
+    try {
+        const token = localStorage.getItem("accessToken"); // localhost에서 토큰 가져오기
+        if (!token) {
+            throw new Error("Authentication token is missing");
+        }
+
+        const requestData = {
+            asmrId,
+            title,
+            musicUrl,
+            musicVolumn: Math.floor(musicVolumn),
+            soundUrls,
+            soundVolumns: soundVolumns.map(Math.floor),
+            soundPositions: soundPositions.map((arr) => arr.map(Math.floor)),
+        };
+
+        // PATCH 요청
+        const response = await http.patch<void>(
+            `/asmr/my-asmr/${asmrId}/update/sound`,
+            requestData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        console.log(response);
+
+        // 요청 성공 시 true 반환
+        return true;
+    } catch (message: any) {
+        // 서버 또는 네트워크 오류 처리
+        if (message.response) {
+            return {
+                code: message.response.data.code || "",
+                message: message.response.data.message || "서버 오류가 발생했습니다.",
+                isSuccess: message.response.data.isSuccess,
+            };
+        }
+
+        // 네트워크 오류 처리
+        return {
+            message: "서버와의 통신 중 오류가 발생했습니다.",
+            isSuccess: false,
+        };
+    }
+};
+
+export const titleSave = async (
+    asmrId: number,
+    title: string
+): Promise<boolean | SaveErrorResponse> => {
+    try {
+        const token = localStorage.getItem("accessToken"); // localhost에서 토큰 가져오기
+        if (!token) {
+            throw new Error("Authentication token is missing");
+        }
+
+        const requestData = {
+            title,
+        };
+
+        // PATCH 요청
+        const response = await http.patch<void>(
+            `/asmr/my-asmr/${asmrId}/update/title`,
+            requestData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        console.log(response);
+
+        // 요청 성공 시 true 반환
+        return true;
+    } catch (message: any) {
+        // 서버 또는 네트워크 오류 처리
+        if (message.response) {
             return {
                 code: message.response.data.code || "",
                 message: message.response.data.message || "서버 오류가 발생했습니다.",
