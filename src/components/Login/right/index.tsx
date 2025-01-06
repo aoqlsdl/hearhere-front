@@ -7,6 +7,7 @@ const LoginRight = () => {
     // 세션에 저장된 asmrData가 있는지 확인
     const asmrData = sessionStorage.getItem("savedData");
     const mode = asmrData !== null ? "basic" : "save";
+    console.log(import.meta.env.VITE_REACT_APP_ENV);
 
     return (
         <div className="w-[59.58%] bg-white h-screen">
