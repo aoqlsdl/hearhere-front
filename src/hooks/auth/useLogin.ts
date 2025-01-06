@@ -36,17 +36,10 @@ export const useLogin = (): void => {
                 localStorage.setItem("refreshToken", loginResponse.refreshToken);
 
                 // 리다이렉트시 턴테이블 나오지 않도록 설정
-                // setIsOn(true);
+                setIsOn(true);
 
                 // 상태 설정 후 리다이렉트
-                if (sessionStorage.getItem("savedData") === null) {
-                    navigate("/");
-                }
-                // else {
-                //     const asmrData = JSON.parse(sessionStorage.getItem("savedData"));
-                //     // 저장된 asmr 데이터를
-                //     navigate(`/player/${asmrData.asmrId}`);
-                // }
+                navigate("/");
             }
         };
 

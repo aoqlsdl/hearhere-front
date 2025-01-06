@@ -11,6 +11,7 @@ import AuthLayout from "./AuthLayout";
 import Signup from "./SignUp";
 import { useRecoilState } from "recoil";
 import { userState } from "../recoil/user/atom";
+import LoginProcess from "./LoginProcess";
 
 const Routes = () => {
     // 로그인 여부에 따라 레이아웃 변경
@@ -18,6 +19,7 @@ const Routes = () => {
 
     return (
         <Router>
+            <Route path="/login/save" element={<LoginProcess />} />
             <Route element={<ProtectedLayout username={user.username} />}>
                 <Route path="player/*" element={<Player />} />
                 <Route path="library/*" element={<Library />} />
