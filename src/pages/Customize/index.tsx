@@ -18,7 +18,7 @@ const Customize = () => {
     const [isHelpOn, setIsHelpOn] = useState(false);
     const [isLoginOn, setIsLoginOn] = useState(false);
     // const [isLogin] = useRecoilState(userState);
-    const [isMessageAppear, setIsMessageAppear] = useState(false);
+    const [isMessageAppear] = useState(false);
     const [_, setErrorMessage] = useState<string | null>(null);
 
     const location = useLocation();
