@@ -6,8 +6,9 @@ const LoginRight = () => {
 
     // 세션에 저장된 asmrData가 있는지 확인
     const asmrData = sessionStorage.getItem("savedData");
+    // 쿼리스트링 설정
     const mode = asmrData !== null ? "basic" : "save";
-    console.log(import.meta.env.VITE_REACT_APP_ENV);
+    const env = import.meta.env.PROD ? 1 : 0;
 
     return (
         <div className="w-[59.58%] bg-white h-screen">
@@ -24,9 +25,7 @@ const LoginRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/google?env=" +
-                                    import.meta.env.VITE_REACT_APP_ENV +
-                                    `&action=${mode}`
+                                    `oauth2/authorization/google?env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
@@ -42,9 +41,7 @@ const LoginRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/kakao?env=" +
-                                    import.meta.env.VITE_REACT_APP_ENV +
-                                    `&action=${mode}`
+                                    `oauth2/authorization/kakao?env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
@@ -60,9 +57,7 @@ const LoginRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/naver?env=" +
-                                    import.meta.env.VITE_REACT_APP_ENV +
-                                    `&action=${mode}`
+                                    `oauth2/authorization/naver??env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
