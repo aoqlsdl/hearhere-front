@@ -8,7 +8,7 @@ const Navbar = () => {
     const logout = useLogout();
 
     return (
-        <nav className="flex justify-between top-0 w-screen h-[4.25rem] fixed z-50">
+        <nav className="flex justify-between top-0 w-screen h-[4.25rem] fixed z-50  font-pre_200">
             <div className="flex justify-center items-center ml-9">
                 {user.accessToken === null ? (
                     <></>
@@ -20,7 +20,10 @@ const Navbar = () => {
             </div>
             <div className="flex flex-row space-x-4 items-center mr-9">
                 {user.accessToken === null ? (
-                    <NavLink to="/login" className="lg:font-extralight 1440:text-[23px]">
+                    <NavLink
+                        to="/login"
+                        className="lg:font-extralight 1440:text-[23px] font-extralight"
+                    >
                         Login/Sign in
                     </NavLink>
                 ) : (

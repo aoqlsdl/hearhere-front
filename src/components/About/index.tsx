@@ -13,7 +13,7 @@ const About = () => {
             className="bg-lps bg-cover bg-bottom bg-no-repeat w-screen h-[58.5rem] flex flex-col items-center relative"
         >
             <motion.h1
-                className="text-[105px] text-white font-medium absolute top-9 select-none"
+                className="text-[105px] text-white font-pre_500 absolute top-9 select-none"
                 initial={{ opacity: 0, y: -20 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }} // 뷰포트에 들어오면 색이 채워지고 제자리로
                 transition={{ duration: 0.1, ease: "linear" }} // 애니메이션 설정
@@ -21,14 +21,14 @@ const About = () => {
                 Hear Here
             </motion.h1>
             <motion.p
-                className="text-subtitle text-primary-BLACK200 font-extralight select-none absolute top-[11.5rem]"
+                className="text-subtitle text-primary-BLACK200 font-pre_100 select-none absolute top-[11.5rem]"
                 initial={{ opacity: 0, y: 0 }} // 초기 상태: 투명하고 약간 위에 위치
                 animate={inView ? { opacity: 1, y: 0 } : {}} // 뷰포트에 들어오면 색이 채워지고 제자리로
                 transition={{ duration: 1, ease: "linear" }} // 지연 시간 추가
             >
                 Whatever You Want, Hear Here.
             </motion.p>
-            <motion.p className="text-center text-white absolute top-[22rem] text-[1.88rem] w-[28.13rem] select-none">
+            <motion.p className="text-center text-white absolute top-[22rem] text-[1.88rem] w-[28.13rem] select-none font-Inter">
                 You don’t have to go
                 <br />
                 anywhere.

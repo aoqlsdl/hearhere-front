@@ -27,11 +27,11 @@ const Command = () => {
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         placeholder="Imagine yourself 'Here', where you most desire to be."
-                        className="border-none w-full p-7 mb-0 bg-primary-BEIGE100 lg:text-base 1440:text-[26px] resize-none scrollbar-hide"
+                        className="font-pre_400 border-none w-full p-7 mb-0 bg-primary-BEIGE100 lg:text-base 1440:text-[26px] resize-none scrollbar-hide"
                     />
                     <button
                         type="button"
-                        className="bg-white hover:bg-primary-PINK w-[6.88rem] h-10 rounded-[15px] p-0 text-primary-PINK hover:text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base 1440:h-16 1440:text-[1.62rem] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)]"
+                        className="bg-white hover:bg-primary-PINK w-[6.88rem] h-10 rounded-[15px] p-0 text-primary-PINK hover:text-white absolute bottom-[1.81rem] right-[1.81rem] lg:h-10 lg:text-base 1440:h-16 1440:text-[1.62rem] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)] font-pre_200"
                         onClick={handleSubmit}
                     >
                         Hear
@@ -43,7 +43,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("Dense forest, birds chirping, waterfall cascading down")
                 }
-                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300"
+                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300 font-pre_400"
             >
                 ♪ Dense forest, birds chirping, waterfall cascading down
             </button>
@@ -52,7 +52,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("Summer Hawaii wave, dolphin calls, people giggling")
                 }
-                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300"
+                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300 font-pre_400"
             >
                 ♪ Summer Hawaii wave, dolphin calls, people giggling
             </button>
@@ -61,7 +61,7 @@ const Command = () => {
                 onClick={() =>
                     handleButtonClick("City drive at midnight, radio sound, car driving")
                 }
-                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300"
+                className="w-[55.42vw] p-4 bg-primary-BEIGE200 text-primary-BEIGE300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] rounded-lg text-left lg:text-base 1440:text-[26px] hover:bg-primary-BEIGE100 hover:text-primary-GRAY300 font-pre_400"
             >
                 ♪ City drive at midnight, radio sound, car driving
             </button>

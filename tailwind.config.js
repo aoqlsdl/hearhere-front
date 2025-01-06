@@ -30,7 +30,14 @@ export default {
                 },
             },
             fontFamily: {
-                pre: ["Pretendard"], // default
+                pre_100: ["Pretendard100"],
+                pre_200: ["Pretendard200"],
+                pre_300: ["Pretendard300"],
+                pre_400: ["Pretendard400"],
+                pre_500: ["Pretendard500"],
+                pre_700: ["Pretendard700"],
+                pre_800: ["Pretendard800"],
+                pre_900: ["Pretendard900"],
                 Inter: ["Inter", "sans-serif"],
                 Luxurious: ["LuxuriousScript"],
             },
