@@ -10,11 +10,7 @@ const SignupRight = () => {
     const mode = asmrData !== null ? "save" : "basic";
     const env = import.meta.env.PROD ? 1 : 0;
 
-    if (asmrData !== null) {
-        useLogin();
-    } else {
-        useLoginSave();
-    }
+    useLogin();
     return (
         <div className="w-[59.58%] bg-white h-screen">
             <div className="h-screen relative flex flex-col text-center items-center -mt-20 1440:-mt-0">

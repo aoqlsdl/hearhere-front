@@ -11,11 +11,7 @@ const LoginRight = () => {
     const mode = asmrData !== null ? "save" : "basic";
     const env = import.meta.env.PROD ? 1 : 0;
 
-    if (asmrData !== null) {
-        useLogin();
-    } else {
-        useLoginSave();
-    }
+    useLogin();
 
     return (
         <>
