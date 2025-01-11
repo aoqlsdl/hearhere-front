@@ -1,7 +1,20 @@
 import { useRedirect } from "../../../hooks/useRedirect";
+import { useLogin, useLoginSave } from "../../../hooks/auth/useLogin";
 
 const SignupRight = () => {
     const redirect = useRedirect();
+    // 세션에 저장된 asmrData가 있는지 확인
+    const asmrData = sessionStorage.getItem("savedData");
+
+    // 쿼리스트링 설정
+    const mode = asmrData !== null ? "save" : "basic";
+    const env = import.meta.env.PROD ? 1 : 0;
+
+    if (asmrData !== null) {
+        useLogin();
+    } else {
+        useLoginSave();
+    }
     return (
         <div className="w-[59.58%] bg-white h-screen">
             <div className="h-screen relative flex flex-col text-center items-center -mt-20 1440:-mt-0">
@@ -17,7 +30,7 @@ const SignupRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/google"
+                                    `oauth2/authorization/google?env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
@@ -33,7 +46,7 @@ const SignupRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/kakao"
+                                    `oauth2/authorization/kakao?env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
@@ -49,7 +62,7 @@ const SignupRight = () => {
                         onClick={() =>
                             redirect(
                                 import.meta.env.VITE_REACT_APP_BASE_URL +
-                                    "oauth2/authorization/naver"
+                                    `oauth2/authorization/naver?env=${env}&action=${mode}`
                             )
                         }
                         className="flex flex-row items-center transition ease-in-out rounded-full w-[18rem] h-[4rem] bg-white text-left text-black text-[1.13rem] border-2 hover:border-primary-PINK"
