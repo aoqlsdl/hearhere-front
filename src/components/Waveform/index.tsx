@@ -15,7 +15,7 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
     const volumeRef = useRef<number>(1);
 
     const [isSelected, setIsSelected] = useState(false); // 선택 상태
-    const [volume, setVolume] = useState(1); // 볼륨 상태 (0~1)
+    const [volume, _] = useState(1); // 볼륨 상태 (0~1)
 
     useEffect(() => {
         if (!waveformRef.current) return;
@@ -52,7 +52,7 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
             waveSurferInstance.current?.destroy();
             waveSurferInstance.current = null;
         };
-    }, [audioUrl, length, volume]);
+    }, [audioUrl, length]);
 
     // 볼륨 업데이트
     useEffect(() => {
