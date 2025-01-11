@@ -12,6 +12,7 @@ interface WaveformProps {
 const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: WaveformProps) => {
     const waveformRef = useRef<HTMLDivElement>(null);
     const waveSurferInstance = useRef<WaveSurfer | null>(null);
+    const volumeRef = useRef<number>(1);
 
     const [isSelected, setIsSelected] = useState(false); // 선택 상태
     const [volume, setVolume] = useState(1); // 볼륨 상태 (0~1)
@@ -43,7 +44,7 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
 
         waveSurferInstance.current.on("audioprocess", onProgressUpdate);
         waveSurferInstance.current.on("ready", () => {
-            waveSurferInstance.current?.setVolume(volume);
+            waveSurferInstance.current?.setVolume(volumeRef.current);
             onReady(waveSurferInstance.current!);
         });
 
@@ -53,10 +54,17 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
         };
     }, [audioUrl, length, volume]);
 
-    // 볼륨 변경
+    // 볼륨 업데이트
+    useEffect(() => {
+        if (waveSurferInstance.current) {
+            waveSurferInstance.current.setVolume(volume);
+        }
+    }, [volume]);
+
+    // 볼륨 슬라이더 조작
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseFloat(e.target.value);
-        setVolume(newVolume);
+        volumeRef.current = newVolume;
 
         if (waveSurferInstance.current) {
             waveSurferInstance.current.setVolume(newVolume);
@@ -92,9 +100,10 @@ const Waveform = ({ audioUrl, isPlaying, onReady, onProgressUpdate, length }: Wa
                             min="0"
                             max="1"
                             step="0.01"
-                            value={volume}
+                            // value={volume}
                             onChange={handleVolumeChange}
                             className="w-12 h-14 rotate-[-90deg] cursor-pointer"
+                            defaultValue={volumeRef.current}
                         />
                     </div>
                 )}
