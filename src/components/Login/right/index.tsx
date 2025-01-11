@@ -1,5 +1,5 @@
 import { useRedirect } from "../../../hooks/useRedirect";
-import { useLogin, useLoginSave } from "../../../hooks/auth/useLogin";
+import { useLogin } from "../../../hooks/auth/useLogin";
 
 const LoginRight = () => {
     const redirect = useRedirect();
