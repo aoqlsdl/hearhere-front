@@ -4,8 +4,6 @@ import Custom from "../../components/Custom";
 import HelpModal from "../../components/HelpModal";
 import LoginModal from "../../components/LoginModal";
 import { useOpenModal } from "../../hooks/useModal";
-// import { useRecoilState } from "recoil";
-// import { userState } from "../../recoil/user/atom";
 import { asmrCustom } from "../../api/services/asmrServices";
 
 interface SoundDetail {
@@ -17,12 +15,16 @@ interface SoundDetail {
 const Customize = () => {
     const [isHelpOn, setIsHelpOn] = useState(false);
     const [isLoginOn, setIsLoginOn] = useState(false);
-    // const [isLogin] = useRecoilState(userState);
     const [isMessageAppear] = useState(false);
     const [_, setErrorMessage] = useState<string | null>(null);
 
     const location = useLocation();
     const { asmrData } = location.state || {}; // state에서 데이터 가져오기
+
+    const [musicVolumn, setMusicVolumn] = useState<number>(asmrData?.musicVolumn || 1);
+    const [soundVolumns, setSoundVolumns] = useState<number[]>(
+        asmrData?.soundVolumns || asmrData?.soundDetails.map(() => 1)
+    );
 
     // 페이지에 진입할 때 asmrData를 localStorage에 저장
     useEffect(() => {
@@ -32,33 +34,32 @@ const Customize = () => {
     }, [asmrData]);
 
     const handleAsmrUpdate = async () => {
-        // UPDATE 요청 수행
         try {
             const soundUrls = asmrData.soundDetails.map((detail: SoundDetail) => detail.url);
-            const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 설정
             const soundPositions = soundUrls.map(() => [0]); // 기본 위치 설정
 
+            // 최신 볼륨 상태를 전달
             const response = await asmrCustom(
                 asmrData.asmrId,
                 asmrData.title,
-                asmrData.musicUrl,
-                1,
+                asmrData.musicUrl || "",
+                musicVolumn,
                 soundUrls,
                 soundVolumns,
                 soundPositions
             );
 
             if (response === true) {
-                // 업데이트 성공
                 alert("Successfully Saved!");
+                // setIsMessageAppear(true);
+                // setTimeout(() => setIsMessageAppear(false), 3000); // 메시지 3초 후 사라짐
             } else {
-                // 실패 처리
-                setErrorMessage(false || "Update failed");
-                console.error(`Error updating ASMR`);
+                console.error("Update failed:", response);
+                setErrorMessage("Update failed");
             }
         } catch (error) {
+            console.error("Error during update:", error);
             setErrorMessage("Request failed during update");
-            console.error("Error during API call:", error);
         }
     };
 
@@ -88,7 +89,11 @@ const Customize = () => {
                     Save
                 </button>
             </div>
-            <Custom asmrData={asmrData} />
+            <Custom
+                asmrData={{ ...asmrData, musicVolumn, soundVolumns }}
+                setMusicVolumn={setMusicVolumn}
+                setSoundVolumns={setSoundVolumns}
+            />
             {isHelpOn && <HelpModal setIsHelpOn={setIsHelpOn} />}
             {isLoginOn && (
                 <LoginModal title="Want to customize your ASMR?" setIsLoginOn={setIsLoginOn} />

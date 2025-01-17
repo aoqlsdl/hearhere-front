@@ -184,18 +184,12 @@ export const asmrCustom = async (
         };
 
         // PATCH 요청
-        const response = await http.patch<void>(
-            `/asmr/my-asmr/${asmrId}/update/sound`,
-            requestData,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            }
-        );
-
-        console.log(response);
+        await http.patch<void>(`/asmr/my-asmr/${asmrId}/update/sound`, requestData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
 
         // 요청 성공 시 true 반환
         return true;

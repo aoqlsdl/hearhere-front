@@ -13,7 +13,9 @@ interface AsmrData {
     asmrId: number;
     title: string;
     musicUrl: string;
+    musicVolumn: number;
     soundDetails: SoundDetail[];
+    soundVolumns: number[];
 }
 
 const Player = () => {
@@ -30,7 +32,6 @@ const Player = () => {
                 try {
                     const data = await getAsmrDetail(parseInt(asmrId));
 
-                    // 데이터 구조 검증 및 변환
                     if (
                         data &&
                         typeof data.asmrId === "number" &&
@@ -40,7 +41,9 @@ const Player = () => {
                             asmrId: data.asmrId,
                             title: data.title || "",
                             musicUrl: data.musicUrl || "",
-                            soundDetails: data.soundDetails.map((detail: any) => ({
+                            musicVolumn: data.musicVolumn,
+                            soundVolumns: data.soundVolumns,
+                            soundDetails: data.soundDetails.map((detail: SoundDetail) => ({
                                 soundId: detail.soundId,
                                 url: detail.url,
                                 length: detail.length,

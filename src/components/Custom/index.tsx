@@ -12,11 +12,15 @@ interface CustomProps {
         asmrId: number;
         title: string;
         musicUrl: string | null;
+        musicVolumn: number;
         soundDetails: SoundDetail[];
+        soundVolumns: number[];
     };
+    setMusicVolumn: React.Dispatch<React.SetStateAction<number>>;
+    setSoundVolumns: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const Custom = ({ asmrData }: CustomProps) => {
+const Custom = ({ asmrData, setMusicVolumn, setSoundVolumns }: CustomProps) => {
     // 재생 상태 관리하기
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0); // 현재 재생 시간
@@ -25,6 +29,18 @@ const Custom = ({ asmrData }: CustomProps) => {
 
     const waveSurferInstances = useRef<any[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    const handleMusicVolumeChange = (volume: number) => {
+        setMusicVolumn(volume); // 최신 음악 볼륨 상태 업데이트
+    };
+
+    const handleSoundVolumeChange = (index: number, volume: number) => {
+        setSoundVolumns((prev) => {
+            const updated = [...prev];
+            updated[index] = volume;
+            return updated;
+        });
+    };
 
     // 가장 긴 음원의 너비값 구하기
     useEffect(() => {
@@ -55,7 +71,6 @@ const Custom = ({ asmrData }: CustomProps) => {
             const longestDuration = Math.max(...durations);
             setDuration(longestDuration);
         };
-
         calculateLongestDuration();
     }, [asmrData]);
 
@@ -134,9 +149,9 @@ const Custom = ({ asmrData }: CustomProps) => {
                 )}
             </button>
 
-            <div className="w-screen flex flex-col overflow-scroll">
+            <div className="w-screen flex flex-col overflow-hidden">
                 {/* 재생 시간 표시 */}
-                <div className="w-fit bg-[#E8DFDF] mt-[1.56rem] border-t border-b border-[#CECACA]">
+                <div className="w-fit bg-[#E8DFDF] mt-[1.56rem] border-t border-b border-[#CECACA] overflow-x-scroll">
                     <div
                         className="relative h-[3.63rem] ml-[1.88rem] bg-white cursor-pointer"
                         style={{ width: maxWidth > 0 ? `${maxWidth - 30}px` : "auto" }}
@@ -173,8 +188,30 @@ const Custom = ({ asmrData }: CustomProps) => {
                     </div>
                 </div>
 
-                <div ref={containerRef}>
+                <div ref={containerRef} className="overflow-scroll">
                     {/* waveform 컴포넌트 */}
+                    {asmrData.musicUrl && (
+                        <div
+                            key={asmrData.musicVolumn}
+                            className="child bg-slate-50 border-b-2 h-[7.44rem] flex flex-col justify-center pl-[1.88rem]"
+                            style={{ width: maxWidth > 0 ? `${maxWidth}px` : "auto" }}
+                        >
+                            <span className="mb-2 font-Inter font-medium text-[1rem] text-[#5E3636]">
+                                Music
+                            </span>
+                            <Waveform
+                                audioUrl={asmrData.musicUrl}
+                                isPlaying={isPlaying}
+                                onReady={(waveSurfer) => {
+                                    waveSurferInstances.current[0] = waveSurfer;
+                                }}
+                                onProgressUpdate={updateCurrentTime}
+                                onVolumeChange={handleMusicVolumeChange}
+                                length={parseLengthToSeconds(asmrData.soundDetails[0].length)}
+                                initialVolume={asmrData.musicVolumn}
+                            />
+                        </div>
+                    )}
                     {asmrData.soundDetails.map((detail, index) => (
                         <div
                             key={detail.soundId}
@@ -191,7 +228,11 @@ const Custom = ({ asmrData }: CustomProps) => {
                                     waveSurferInstances.current[index] = waveSurfer;
                                 }}
                                 onProgressUpdate={updateCurrentTime}
+                                onVolumeChange={(newVolume) =>
+                                    handleSoundVolumeChange(index, newVolume)
+                                }
                                 length={parseLengthToSeconds(detail.length)}
+                                initialVolume={asmrData.soundVolumns[index]}
                             />
                         </div>
                     ))}

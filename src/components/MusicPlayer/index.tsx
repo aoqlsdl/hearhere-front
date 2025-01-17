@@ -20,6 +20,8 @@ interface Props {
         title: string;
         musicUrl: string;
         soundDetails: SoundDetail[];
+        musicVolumn: number;
+        soundVolumns: number[];
     };
     setIsLoginOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -79,36 +81,41 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
             } catch (error) {
                 console.error("Error during saving ASMR:", error);
             }
-        } else if (path === "/customization") {
-            // UPDATE 요청 수행
-            try {
-                const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
-                const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 설정
-                const soundPositions = soundUrls.map(() => [0]); // 기본 위치 설정
-
-                const response = await asmrCustom(
-                    asmrData.asmrId,
-                    asmrData.title,
-                    asmrData.musicUrl,
-                    1,
-                    soundUrls,
-                    soundVolumns,
-                    soundPositions
-                );
-
-                if (response === true) {
-                    // 업데이트 성공
-                    alert("Successfully Saved!");
-                } else {
-                    // 실패 처리
-                    setErrorMessage(false || "Update failed");
-                    console.error(`Error updating ASMR`);
-                }
-            } catch (error) {
-                setErrorMessage("Request failed during update");
-                console.error("Error during API call:", error);
-            }
         }
+        // else if (path.includes("customization")) {
+        //     console.log(true);
+        //     const updatedMusicVolumn = asmrData.musicVolumn; // 최신 상태
+        //     const updatedSoundVolumns = asmrData.soundVolumns; // 최신 상태
+
+        //     // UPDATE 요청 수행
+        //     try {
+        //         const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
+        //         const soundPositions = soundUrls.map(() => [0]); // 기본 위치 설정
+
+        //         const response = await asmrCustom(
+        //             asmrData.asmrId,
+        //             asmrData.title,
+        //             asmrData.musicUrl,
+        //             updatedMusicVolumn,
+        //             soundUrls,
+        //             updatedSoundVolumns,
+        //             soundPositions
+        //         );
+
+        //         if (response === true) {
+        //             // 업데이트 성공
+        //             alert("Successfully Saved!");
+        //         } else {
+        //             // 실패 처리
+        //             setErrorMessage(false || "Update failed");
+        //             console.error(`Error updating ASMR`);
+        //         }
+        //     }
+        // catch (error) {
+        //     setErrorMessage("Request failed during update");
+        //     console.error("Error during API call:", error);
+        // }
+        // }
     };
 
     return (
