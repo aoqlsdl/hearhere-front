@@ -20,7 +20,7 @@ const ASMRList = ({ asmrTitle, asmrId }: Props) => {
             <button
                 type="button"
                 className="bg-white hover:bg-primary-PINK text-primary-PINK hover:text-white w-[7rem] h-[3rem] 1440:w-[7.63rem] 1440:h-[3.19rem] rounded-[15px] text-lg 1440:text-[1.56rem] drop-shadow-[0_2px_1px_rgba(0,0,0,0.25)]"
-                onClick={() => redirect(`/player/${asmrId}`)}
+                onClick={() => redirect(`/player?asmrId=${asmrId}`)}
             >
                 Hear
             </button>

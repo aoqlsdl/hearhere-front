@@ -2,6 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Banner from "../components/Banner";
 import Navbar from "../components/Navbar";
 import BackNavbar from "../components/Navbar/index-back";
+import CustomBanner from "../components/Banner/index-custom";
 
 type Props = {
     username: string | null;
@@ -9,7 +10,6 @@ type Props = {
 
 const ProtectedLayout = ({ username }: Props) => {
     // 로그인이 되어 있지 않으면 로그인 페이지로 이동
-
     if (!username) {
         return <Navigate to="/login" />;
     }
@@ -20,7 +20,7 @@ const ProtectedLayout = ({ username }: Props) => {
         <>
             <div className="w-screen">
                 {location.includes("player") ? <BackNavbar /> : <Navbar />}
-                <Banner />
+                {location.includes("customization") ? <CustomBanner /> : <Banner />}
                 <main>
                     <Outlet />
                 </main>

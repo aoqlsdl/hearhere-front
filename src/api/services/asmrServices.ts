@@ -16,6 +16,22 @@ export const getAsmrList = async (): Promise<AsmrResponse[]> => {
     return response.data;
 };
 
+export interface AsmrData {
+    asmrId: number;
+    title: string;
+    musicUrl: string;
+    musicVolumn: number;
+    soundUrls: string[];
+    soundVolumns: number[];
+    soundPositions: number[][];
+    soundDetails: SoundDetail[];
+}
+
+export const getAsmrDetail = async (asmrId: number): Promise<AsmrData> => {
+    const response = await http.get(`/asmr/my-asmr/${asmrId}`);
+    return response.data;
+};
+
 // asmr 생성 및 저장
 interface SoundDetail {
     soundId: number;

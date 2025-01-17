@@ -2,11 +2,11 @@ import SlidingText from "../SlidingText";
 import StreamingBar from "../StreamingBar/index";
 import { useRedirect } from "../../hooks/useRedirect";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 import { useOpenModal } from "../../hooks/useModal";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/user/atom";
-import { asmrSave } from "../../api/services/asmrServices";
+import { asmrSave, asmrCustom } from "../../api/services/asmrServices";
 
 interface SoundDetail {
     soundId: number;
@@ -23,6 +23,7 @@ interface Props {
     };
     setIsLoginOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
     const redirect = useRedirect();
     const path = useLocation().pathname;
@@ -30,8 +31,10 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
     // 페이지 전환시 asmrData 전달
     const navigate = useNavigate();
     const handleCustomize = () => {
-        navigate(`/customization`, { state: { asmrData } });
+        navigate(`/customization/${asmrData.asmrId}`, { state: { asmrData } });
     };
+
+    const [_, setErrorMessage] = useState<string | null>(null);
 
     const musicInfo = {
         ...asmrData,
@@ -51,17 +54,15 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
         } else if (path === "/result") {
             try {
                 // POST 요청 수행
-                // @todo: result 페이지로 돌아올 때마다 계속 post되는 에러 해결하기
                 const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
-                // console.log("musicplayer.tsx", soundUrls);
-                const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 값 설정
-                const soundPositions = soundUrls.map(() => [0]); // 기본 시작 위치 값 설정
+                const soundVolumns = new Array(soundUrls.length).fill(1);
+                const soundPositions = soundUrls.map(() => [0]);
 
                 const response = await asmrSave(
                     asmrData.asmrId,
                     asmrData.title,
                     asmrData.musicUrl,
-                    1, // 기본 음악 볼륨
+                    1,
                     soundUrls,
                     soundVolumns,
                     soundPositions
@@ -79,8 +80,34 @@ const MusicPlayer = ({ asmrData, setIsLoginOn }: Props) => {
                 console.error("Error during saving ASMR:", error);
             }
         } else if (path === "/customization") {
-            // todo: 이후 update api 추가
-            alert("Successfully updated");
+            // UPDATE 요청 수행
+            try {
+                const soundUrls = asmrData.soundDetails.map((detail) => detail.url);
+                const soundVolumns = new Array(soundUrls.length).fill(1); // 기본 볼륨 설정
+                const soundPositions = soundUrls.map(() => [0]); // 기본 위치 설정
+
+                const response = await asmrCustom(
+                    asmrData.asmrId,
+                    asmrData.title,
+                    asmrData.musicUrl,
+                    1,
+                    soundUrls,
+                    soundVolumns,
+                    soundPositions
+                );
+
+                if (response === true) {
+                    // 업데이트 성공
+                    alert("Successfully Saved!");
+                } else {
+                    // 실패 처리
+                    setErrorMessage(false || "Update failed");
+                    console.error(`Error updating ASMR`);
+                }
+            } catch (error) {
+                setErrorMessage("Request failed during update");
+                console.error("Error during API call:", error);
+            }
         }
     };
 
