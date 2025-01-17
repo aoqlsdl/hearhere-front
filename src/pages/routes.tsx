@@ -23,11 +23,11 @@ const Routes = () => {
             <Route element={<ProtectedLayout username={user.username} />}>
                 <Route path="player/*" element={<Player />} />
                 <Route path="library/*" element={<Library />} />
+                <Route path="customization/*" element={<Customize />} />
             </Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="result" element={<Result />} />
-                <Route path="customization/*" element={<Customize />} />
             </Route>
             <Route element={<AuthLayout />}>
                 <Route path="/login" element={<Login />} />
