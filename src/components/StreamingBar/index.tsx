@@ -17,13 +17,29 @@ interface Props {
     };
 }
 
+// interface CustomizationData {
+//     musicUrl: string | null;
+//     musicVolume: number;
+//     soundUrls: string[];
+//     soundVolumes: number[];
+//     soundPositions: number[][];
+// }
+
 const StreamingBar = ({ asmrData }: Props) => {
     const waveSurferRefs = useRef<WaveSurfer[]>([]);
+    // const [isLoading, setIsLoading] = useState(true);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [totalDuration, setTotalDuration] = useState(0);
     const [progress, setProgress] = useState(0);
-    // const [isLoading, setIsLoading] = useState(true);
+    // 랜덤 재생 정보 관리
+    // const [randomPlayData, setRandomPlayData] = useState<CustomizationData>({
+    //     musicUrl: asmrData.musicUrl,
+    //     musicVolume: 1,
+    //     soundUrls: asmrData.soundDetails.map((detail) => detail.url),
+    //     soundVolumes: asmrData.soundDetails.map(() => 1),
+    //     soundPositions: [],
+    // });
 
     useEffect(() => {
         const waveSurfers: WaveSurfer[] = asmrData.soundDetails.map((soundDetail) => {
@@ -39,6 +55,17 @@ const StreamingBar = ({ asmrData }: Props) => {
         });
 
         waveSurferRefs.current = waveSurfers;
+
+        // 소리 요소 Random positions 관리
+        // const randomPositions: number[][] = asmrData.soundDetails.map((soundDetail) => {
+        //     const soundLength = parseLengthToSeconds(soundDetail.length);
+        //     return generateRandomPositions(soundLength, totalDuration, 3);
+        // });
+
+        // setRandomPlayData((prev) => ({
+        //     ...prev,
+        //     soundPositions: randomPositions,
+        // }));
 
         waveSurfers.forEach((waveSurfer) => {
             waveSurfer.on("ready", () => {
@@ -66,11 +93,64 @@ const StreamingBar = ({ asmrData }: Props) => {
         };
     }, [asmrData]);
 
+    // 랜덤 재생 실행 로직
+    // const playRandomly = () => {
+    //     waveSurferRefs.current.forEach((waveSurfer, index) => {
+    //         const positions = randomPlayData.soundPositions[index];
+    //         if (positions) {
+    //             playAtPositions(waveSurfer, positions);
+    //         }
+    //     });
+    // };
+
+    // const playAtPositions = (waveSurfer: WaveSurfer, positions: number[]) => {
+    //     const playSegment = (segmentIndex: number) => {
+    //         if (segmentIndex < positions.length) {
+    //             const start = positions[segmentIndex];
+    //             const soundLength = parseLengthToSeconds(
+    //                 asmrData.soundDetails[waveSurferRefs.current.indexOf(waveSurfer)].length
+    //             );
+    //             const duration = Math.min(soundLength, totalDuration - start);
+
+    //             // 재생 위치를 찾기
+    //             waveSurfer.seekTo(start / totalDuration);
+    //             waveSurfer.play();
+
+    //             // 재생이 끝나면 다음 재생으로 넘어가기
+    //             setTimeout(() => {
+    //                 waveSurfer.pause();
+    //                 playSegment(segmentIndex + 1);
+    //             }, duration * 1000);
+    //         }
+    //     };
+    //     playSegment(0);
+    // };
+
+    // // 랜덤 위치 생성 유틸리티 함수
+    // const generateRandomPositions = (
+    //     soundLength: number,
+    //     maxDuration: number,
+    //     maxOccurrences: number
+    // ): number[] => {
+    //     const positions: number[] = [];
+    //     while (positions.length < maxOccurrences) {
+    //         const randomTime = Math.random() * maxDuration;
+    //         if (
+    //             !positions.some((pos) => Math.abs(pos - randomTime) < soundLength) &&
+    //             randomTime + soundLength <= maxDuration
+    //         ) {
+    //             positions.push(Math.floor(randomTime));
+    //         }
+    //     }
+    //     return positions.sort((a, b) => a - b);
+    // };
+
     const togglePlayPause = async () => {
         if (isPlaying) {
             await Promise.all(waveSurferRefs.current.map((waveSurfer) => waveSurfer.pause()));
         } else {
             await Promise.all(waveSurferRefs.current.map((waveSurfer) => waveSurfer.play()));
+            // playRandomly();
         }
         setIsPlaying(!isPlaying);
     };
@@ -93,11 +173,17 @@ const StreamingBar = ({ asmrData }: Props) => {
         setProgress(newProgress * 100);
     };
 
+    // 시간 포맷팅
     const formatTime = (time: number): string => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     };
+
+    // const parseLengthToSeconds = (length: string): number => {
+    //     const [minutes, seconds] = length.split(":").map(Number);
+    //     return minutes * 60 + seconds;
+    // };
 
     return (
         <>
