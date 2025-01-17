@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { titleSave } from "../../api/services/asmrServices";
-// import { useParams } from "react-router-dom";
 
 const CustomBanner = () => {
     const { ref, inView } = useInView({
@@ -10,46 +9,45 @@ const CustomBanner = () => {
         threshold: 0.8,
     });
 
-    // const asmrId = useParams(); // URL 파라미터 가져오기
-
     const [title, setTitle] = useState<string>("");
-    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [asmrData, setAsmrData] = useState<any>(null);
 
     // localStorage에서 asmrData를 가져와 title 설정
-    let asmrData: any;
     useEffect(() => {
         const storedAsmrData = localStorage.getItem("asmrData");
         if (storedAsmrData) {
             const parsedData = JSON.parse(storedAsmrData);
-            setTitle(parsedData.title || ""); // 제목 설정
+            setAsmrData(parsedData);
+            setTitle(parsedData.title || "");
         }
-        asmrData = storedAsmrData;
     }, []);
 
     const handleTitleUpdate = async () => {
         try {
-            const response = await titleSave(asmrData.asmrId, asmrData.title);
+            const response = await titleSave(asmrData.asmrId, title);
 
             if (response) {
-                alert("Successfully saved!");
+                alert("Successfully updated title!");
                 // setIsMessageAppear(true);
                 // setTimeout(() => {
                 //     setIsMessageAppear(false);
                 // }, 2000);
-            } else {
-                setErrorMessage("저장 실패");
             }
         } catch (error) {
-            setErrorMessage("요청 처리 중 오류가 발생했습니다.");
-            console.log(errorMessage);
+            console.log(error);
+            alert("Failed to update title.");
         }
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value); // 입력 값 변경 시 상태 업데이트
+        const newTitle = e.target.value;
+        setTitle(newTitle); // 입력 값 변경 시 상태 업데이트
+        if (asmrData) {
+            setAsmrData({ ...asmrData, title: newTitle }); // asmrData.title 동기화
+        }
     };
 
-    const save = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const saveTitle = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             handleTitleUpdate();
         }
@@ -76,9 +74,9 @@ const CustomBanner = () => {
             >
                 <input
                     value={title}
-                    className="bg-transparent border-none"
+                    className="bg-transparent border-none w-[40rem] text-center"
                     onChange={handleInputChange}
-                    onKeyDown={save}
+                    onKeyDown={saveTitle}
                 />
             </motion.p>
         </div>
